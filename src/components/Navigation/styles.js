@@ -4,44 +4,84 @@ import { Link } from 'gatsby'
 import { breakpoints } from '../../utils/styles'
 
 export const Wrapper = styled.div`
-  background: rebeccapurple;
+  background: #ffffff;
   margin-bottom: 1.45rem;
 `
 
 export const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 1.45rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
   margin: 0 auto;
   max-width: 960px;
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
 `
 
 export const MenuLink = styled(Link)`
-  color: white;
+  color: #000000;
   text-decoration: none;
   font-size: 2rem;
   font-weight: bold;
 
-  @media (max-width: ${breakpoints.s}px){
-    font-size: 1.4rem
+  @media (max-width: ${breakpoints.s}px) {
+    font-size: 1.4rem;
+  }
+`
+
+export const MobileMenuLink = styled(Link)`
+  color: #000000;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  // top: -20px;
+
+  @media (min-width: ${breakpoints.s}px) {
+    display: none;
   }
 `
 
 export const CartCounter = styled.span`
-  background-color: white;
+  background-color: transparent;
   color: #663399;
   border-radius: 20px;
   padding: 0 10px;
   font-size: 1.2rem;
   float: right;
-  margin: -10px;
+  margin-top: -10px;
   z-index: 20;
 `
 
-    
-     
-        
-          
-            
-              
+export const Title = styled.div`
+  color: #000000;
+  text-decoration: none;
+  font-size: 2rem;
+  font-weight: bold;
+
+  letter-spacing: 2px;
+  margin: 0;
+  position: relative;
+  bottom: -10px;
+  color: #8a25b1;
+  background: -webkit-linear-gradient(left, #000000, #8a25b1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2em;
+
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+    // font-size: 1.4rem;
+  }
+
+  @media (max-width: ${breakpoints.m}px) {
+    font-size: 1.4rem;
+  }
+`
+
+export const LogoIcon = styled.img`
+  @media (max-width: ${breakpoints.s}px) {
+    display: none;
+  }
+`

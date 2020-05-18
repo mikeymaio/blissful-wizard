@@ -8,10 +8,14 @@ import ContextProvider from '~/provider/ContextProvider'
 import { GlobalStyle } from '~/utils/styles'
 import Navigation from '~/components/Navigation'
 
+import fullLogo from '../images/ForWeb/small.png'
+import wizardIcon from '../images/wizard.png'
+
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 960px;
   padding: 0px 1.0875rem 1.45rem;
+  height: 100%;
 `
 
 const Layout = ({ children }) => {
@@ -28,19 +32,31 @@ const Layout = ({ children }) => {
             }
           }
         `}
-        render={data => (
-          <>
-            <Navigation siteTitle={data.site.siteMetadata.title} />
-            <Wrapper>
-              {children}
-              <footer>
-                © {new Date().getFullYear()}, Built with
-                {` `}
-                <a href="https://www.gatsbyjs.org">Gatsby</a>
+        render={data => {
+          console.log('data: ', data)
+          return (
+            <>
+              <Navigation
+                siteTitle={data.site.siteMetadata.title}
+                logo={fullLogo}
+                wizardIcon={wizardIcon}
+              />
+              <Wrapper style={{ paddingTop: 125 }}>{children}</Wrapper>
+              <footer
+                style={{
+                  width: '100%',
+                  padding: 20,
+                  boxSizing: 'border-box',
+                }}
+              >
+                © {new Date().getFullYear()},{` `}
+                <a href="/legal" style={{ color: '#8a25b1' }}>
+                  Blissful Wizard, LLC
+                </a>
               </footer>
-            </Wrapper>
-          </>
-        )}
+            </>
+          )
+        }}
       />
     </ContextProvider>
   )
