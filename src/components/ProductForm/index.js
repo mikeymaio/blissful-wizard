@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 
 import StoreContext from '~/context/StoreContext'
 
+import { Button } from '../_shared/button';
+
 const ProductForm = ({ product }) => {
   const {
     options,
@@ -132,14 +134,22 @@ const ProductForm = ({ product }) => {
         style={{ margin: '10px 0', width: 50, textAlign: 'center' }}
       />
       <br />
-      <button
+      {/* <button
         type="submit"
         disabled={!available || adding}
         onClick={handleAddToCart}
         style={{ margin: '10px 0'}}
       >
         Add to Cart
-      </button>
+      </button> */}
+      <Button animated
+        type="submit"
+        disabled={!available || adding}
+        onClick={handleAddToCart}
+        style={{ margin: '10px 0'}}
+      >
+        Add to Cart
+      </Button>
       {!available && <p>This Product is out of Stock!</p>}
     </>
   )

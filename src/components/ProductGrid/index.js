@@ -1,5 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
+
+import find from 'lodash/find'
 
 import StoreContext from '~/context/StoreContext'
 import { Grid, Product, Title, PriceTag } from './styles'
@@ -7,7 +9,7 @@ import { Img } from '~/utils/styles'
 
 const ProductGrid = () => {
   const {
-    store: { checkout },
+    store: { checkout, client },
   } = useContext(StoreContext)
   const { allShopifyProduct } = useStaticQuery(
     graphql`
@@ -19,6 +21,8 @@ const ProductGrid = () => {
               title
               handle
               createdAt
+              tags
+              productType
               images {
                 id
                 originalSrc
@@ -32,6 +36,10 @@ const ProductGrid = () => {
               }
               variants {
                 price
+                selectedOptions {
+                  name
+                  value
+                }
               }
             }
           }
@@ -39,6 +47,63 @@ const ProductGrid = () => {
       }
     `
   )
+
+  const [productTypeFilter, setProductTypeFilter] = useState('');
+  const [productSizeFilter, setProductSizeFilter] = useState('');
+
+  const renderProducts = productList => {
+    let productListToRender = productList;
+    if (!productList || !productList.length) {
+      return <p>No Products found!</p>
+    } else if (productTypeFilter || productSizeFilter) {
+      if (productTypeFilter) {
+        productListToRender = productListToRender.filter(item => item.node.productType.toLowerCase() === productTypeFilter.toLowerCase())
+      }
+      if (productSizeFilter) {
+        productListToRender = productListToRender.filter(
+          item => !!find(item.node.variants,
+            variant => find(variant.selectedOptions,
+              opt => opt.value.toLowerCase() === productSizeFilter.toLowerCase()
+            )
+          )
+        )
+      }
+      if (productListToRender.length === 0) return <p>No Products found!</p>
+    } else {
+      productListToRender = productList;
+    }
+    return (
+      productListToRender.map(
+            ({
+              node: {
+                id,
+                handle,
+                title,
+                images: [firstImage],
+                // variants: [firstVariant, ...variants],
+                variants,
+              },
+            }) => {
+              // console.log('firstVariant: ', firstVariant);
+              console.log('variants: ', variants);
+              return (
+              <Product key={id}>
+                <Link to={`/product/${handle}/`}>
+                  {firstImage && firstImage.localFile && (
+                    <Img
+                      fluid={firstImage.localFile.childImageSharp.fluid}
+                      alt={handle}
+                    />
+                  )}
+                </Link>
+                <Title>{title}</Title>
+                {/* <PriceTag>{getPrice(firstVariant.price)}</PriceTag> */}
+                <PriceTag>{getPrice(variants[0].price)}</PriceTag>
+              </Product>
+            )}
+          )
+    )
+  }
 
   const getPrice = price =>
     Intl.NumberFormat(undefined, {
@@ -57,43 +122,32 @@ const ProductGrid = () => {
           alignItems: 'center',
         }}
       >
-        <p>Filters coming soon</p>
-        <select style={{ margin: 10 }}>
-          <option value="dress">Shirts</option>
-          <option value="dress">Hoodies</option>
+        <label for="type">Type</label>
+        <select id="type" style={{ margin: 10 }} onChange={e => {
+          // console.log('e: ', e);
+          setProductTypeFilter(e.target.value)
+        }}>
+          <option value="">All</option>
+          <option value="shirt">Shirts</option>
+          <option value="hoodie">Hoodies</option>
           <option value="dress">Dresses</option>
-          <option value="dress">Pants</option>
+          <option value="pants">Pants</option>
+        </select>
+        <label for="type">Size</label>
+        <select id="size" style={{ margin: 10 }} onChange={e => {
+          console.log('e: ', e);
+          setProductSizeFilter(e.target.value)
+        }}>
+          <option value="">All</option>
+          <option value="XS">XS</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
         </select>
       </div>
       <Grid>
-        {allShopifyProduct.edges ? (
-          allShopifyProduct.edges.map(
-            ({
-              node: {
-                id,
-                handle,
-                title,
-                images: [firstImage],
-                variants: [firstVariant],
-              },
-            }) => (
-              <Product key={id}>
-                <Link to={`/product/${handle}/`}>
-                  {firstImage && firstImage.localFile && (
-                    <Img
-                      fluid={firstImage.localFile.childImageSharp.fluid}
-                      alt={handle}
-                    />
-                  )}
-                </Link>
-                <Title>{title}</Title>
-                <PriceTag>{getPrice(firstVariant.price)}</PriceTag>
-              </Product>
-            )
-          )
-        ) : (
-          <p>No Products found!</p>
-        )}
+        {renderProducts(allShopifyProduct.edges)}
       </Grid>
     </>
   )
