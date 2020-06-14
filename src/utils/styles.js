@@ -16,6 +16,7 @@ export const GlobalStyle = props => (
     styles={css`
       * {
         box-sizing: border-box;
+        // cursor: url(https://abs.twimg.com/emoji/v2/72x72/1f525.png), auto;
       }
       body {
         margin: 0;
