@@ -10,11 +10,13 @@ export const Wrapper = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding: 1rem;
   margin: 0 auto;
-  max-width: 960px;
+  // max-width: 960px;
+  width: 100%;
   box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
 `
 
@@ -23,9 +25,15 @@ export const MenuLink = styled(Link)`
   text-decoration: none;
   font-size: 2rem;
   font-weight: bold;
+  display: none;
+  flex: 1;
 
   @media (max-width: ${breakpoints.s}px) {
     font-size: 1.4rem;
+  }
+
+  @media (min-width: ${breakpoints.m}px) {
+    display: flex;
   }
 `
 
@@ -34,9 +42,11 @@ export const MobileMenuLink = styled(Link)`
   text-decoration: none;
   font-size: 2rem;
   font-weight: bold;
-  position: absolute;
-  left: 0;
+  // position: absolute;
+  // left: 0;
   // top: -20px;
+  display: flex;
+  flex: 1;
 
   @media (min-width: ${breakpoints.s}px) {
     display: none;
@@ -45,13 +55,17 @@ export const MobileMenuLink = styled(Link)`
 
 export const CartCounter = styled.span`
   background-color: transparent;
-  color: #663399;
+  // color: #663399;
+  color: #000;
   border-radius: 20px;
   padding: 0 10px;
   font-size: 1.2rem;
   float: right;
   margin-top: -10px;
   z-index: 20;
+  position: absolute;
+  top: -10px;
+  right: -10px;
 `
 
 export const Title = styled.div`
@@ -62,8 +76,8 @@ export const Title = styled.div`
 
   letter-spacing: 2px;
   margin: 0;
-  position: relative;
-  bottom: -10px;
+  // position: relative;
+  // bottom: -10px;
   color: #8a25b1;
   background: -webkit-linear-gradient(left, #000000, #8a25b1);
   -webkit-background-clip: text;

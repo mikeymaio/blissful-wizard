@@ -34,17 +34,17 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
         left: 0,
         right: 0,
         zIndex: 10,
-        height: 120,
       }}
     >
       <Container>
+        <MobileMenuLink to="/" />
         <MobileMenuLink to="/">
           <img
-            src={logo}
+            src={wizardIcon}
             alt={siteTitle}
             style={{
-              height: 125,
-              objectFit: 'cover',
+              height: 110,
+              objectFit: 'contain',
               objectPosition: 'center center',
               marginLeft: 10,
             }}
@@ -53,29 +53,16 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
         <MenuLink
           to="/"
           style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'flex-end',
+            // display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
             height: 75,
-            position: 'relative',
-            bottom: 10,
-          }}
+            // position: 'relative',
+            // bottom: 10,
+            marginLeft: 10,
+            // height: '100%',
+          }}  
         >
-          <Title
-            style={{
-              letterSpacing: 2,
-              margin: 0,
-              position: 'relative',
-              bottom: '-10px',
-              color: '#8a25b1',
-              background: '-webkit-linear-gradient(left, #000000, #8a25b1)',
-              webkitBackgroundClip: 'text',
-              webkitTextFillColor: 'transparent',
-              fontSize: '2em',
-            }}
-          >
-            {siteTitle}
-          </Title>
           <LogoIcon
             src={wizardIcon}
             alt={siteTitle}
@@ -83,20 +70,43 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'center center',
-              marginLeft: 10,
+              // marginLeft: 10,
             }}
           />
         </MenuLink>
         <MenuLink
+          to="/"
+          style={{
+            flex: 3,
+            justifyContent: 'center',
+          }}
+        >
+          <Title
+            style={{
+              letterSpacing: 2,
+              color: '#8a25b1',
+              background: '-webkit-linear-gradient(left, #000000, #8a25b1)',
+              webkitBackgroundClip: 'text',
+              webkitTextFillColor: 'transparent',
+              fontSize: '1.7em',
+            }}
+          >
+            Blissful Wizard
+            {/* {siteTitle} */}
+          </Title>
+
+        </MenuLink>
+        <MenuLink
           to="/cart"
-          style={{ position: 'absolute', right: 30, display: 'flex' }}
+          style={{ display: 'flex', position: 'relative', marginRight: 10, justifyContent: 'flex-end', }}
         >
           {hasItems && <CartCounter>{quantity}</CartCounter>}
           <span
             className="material-icons-outlined"
             style={{
               fontFamily: 'Material Icons',
-              background: '-webkit-linear-gradient(#8a25b1, #000000)',
+              // background: '-webkit-linear-gradient(#8a25b1, #000000)',
+              background: '#000',
               webkitBackgroundClip: 'text',
               webkitTextFillColor: 'transparent',
               fontSize: 36,
