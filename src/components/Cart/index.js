@@ -18,7 +18,7 @@ const Cart = () => {
   })
 
   return (
-    <div>
+    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
       {line_items}
       <h2>Subtotal</h2>
       <p>$ {checkout.subtotalPrice}</p>
