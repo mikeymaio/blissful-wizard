@@ -33,7 +33,6 @@ const Layout = ({ children }) => {
           }
         `}
         render={data => {
-          console.log('data: ', data)
           return (
             <>
               <Navigation

@@ -80,12 +80,9 @@ const ProductGrid = () => {
                 handle,
                 title,
                 images: [firstImage],
-                // variants: [firstVariant, ...variants],
                 variants,
               },
             }) => {
-              // console.log('firstVariant: ', firstVariant);
-              console.log('variants: ', variants);
               return (
               <Product key={id}>
                 <Link to={`/product/${handle}/`}>
@@ -97,7 +94,6 @@ const ProductGrid = () => {
                   )}
                 </Link>
                 <Title>{title}</Title>
-                {/* <PriceTag>{getPrice(firstVariant.price)}</PriceTag> */}
                 <PriceTag>{getPrice(variants[0].price)}</PriceTag>
               </Product>
             )}
@@ -107,7 +103,7 @@ const ProductGrid = () => {
 
   const getPrice = price =>
     Intl.NumberFormat(undefined, {
-      currency: checkout.currencyCode ? checkout.currencyCode : 'EUR',
+      currency: checkout.currencyCode ? checkout.currencyCode : 'USD',
       minimumFractionDigits: 2,
       style: 'currency',
     }).format(parseFloat(price ? price : 0))
@@ -123,10 +119,7 @@ const ProductGrid = () => {
         }}
       >
         <label for="type">Type</label>
-        <select id="type" style={{ margin: 10 }} onChange={e => {
-          // console.log('e: ', e);
-          setProductTypeFilter(e.target.value)
-        }}>
+        <select id="type" style={{ margin: 10 }} onChange={e => setProductTypeFilter(e.target.value)}>
           <option value="">All</option>
           <option value="shirt">Shirts</option>
           <option value="hoodie">Hoodies</option>
@@ -134,10 +127,7 @@ const ProductGrid = () => {
           <option value="pants">Pants</option>
         </select>
         <label for="type">Size</label>
-        <select id="size" style={{ margin: 10 }} onChange={e => {
-          console.log('e: ', e);
-          setProductSizeFilter(e.target.value)
-        }}>
+        <select id="size" style={{ margin: 10 }} onChange={e => setProductSizeFilter(e.target.value)}>
           <option value="">All</option>
           <option value="XS">XS</option>
           <option value="S">S</option>
