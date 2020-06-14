@@ -8,8 +8,8 @@ import ContextProvider from '~/provider/ContextProvider'
 import { GlobalStyle } from '~/utils/styles'
 import Navigation from '~/components/Navigation'
 
-import fullLogo from '../images/ForWeb/small.png'
-import wizardIcon from '../images/wizard.png'
+import fullLogo from '../images/logo/bw-logo-w-text.svg'
+import wizardIcon from '../images/logo/bw-logo.svg'
 
 const Wrapper = styled.div`
   margin: 0 auto;
