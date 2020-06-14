@@ -22,7 +22,7 @@ export const GlobalStyle = props => (
         box-sizing: border-box;
       }
       html {
-        font-family: 'Italiana', sans-serif;
+        font-family: 'Lobster Two', sans-serif;
         -ms-text-size-adjust: 100%;
         -webkit-text-size-adjust: 100%;
         box-sizing: border-box;

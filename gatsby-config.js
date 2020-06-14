@@ -78,6 +78,7 @@ module.exports = {
         fonts: [
           'material icons',
           'italiana:300,400,500,700',
+          'lobster two: 300,400,500,700',
         ],
       },
     },
