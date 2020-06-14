@@ -105,6 +105,7 @@ const ProductForm = ({ product }) => {
             name={name}
             key={id}
             onChange={event => handleOptionChange(index, event)}
+            style={{ margin: '10px 0'}}
           >
             {values.map(value => (
               <option
@@ -128,12 +129,14 @@ const ProductForm = ({ product }) => {
         step="1"
         onChange={handleQuantityChange}
         value={quantity}
+        style={{ margin: '10px 0', width: 50, textAlign: 'center' }}
       />
       <br />
       <button
         type="submit"
         disabled={!available || adding}
         onClick={handleAddToCart}
+        style={{ margin: '10px 0'}}
       >
         Add to Cart
       </button>
