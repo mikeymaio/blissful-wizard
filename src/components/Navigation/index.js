@@ -26,6 +26,14 @@ const useQuantity = () => {
 const Navigation = ({ siteTitle, logo, wizardIcon }) => {
   const [hasItems, quantity] = useQuantity()
 
+  const toTitleCase = phrase => {
+    return phrase
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+  }
+
   return (
     <Wrapper
       style={{
@@ -70,7 +78,6 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'center center',
-              // marginLeft: 10,
             }}
           />
         </MenuLink>
@@ -81,18 +88,8 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
             justifyContent: 'center',
           }}
         >
-          <Title
-            style={{
-              letterSpacing: 2,
-              color: '#8a25b1',
-              background: '-webkit-linear-gradient(left, #000000, #8a25b1)',
-              webkitBackgroundClip: 'text',
-              webkitTextFillColor: 'transparent',
-              fontSize: '1.7em',
-            }}
-          >
-            Blissful Wizard
-            {/* {siteTitle} */}
+          <Title>
+            {toTitleCase(siteTitle)}
           </Title>
 
         </MenuLink>
@@ -105,10 +102,9 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
             className="material-icons-outlined"
             style={{
               fontFamily: 'Material Icons',
-              // background: '-webkit-linear-gradient(#8a25b1, #000000)',
               background: '#000',
-              webkitBackgroundClip: 'text',
-              webkitTextFillColor: 'transparent',
+              '-webkit-background-clip': 'text',
+              '-webkit-text-fill-color': 'transparent',
               fontSize: 36,
             }}
           >

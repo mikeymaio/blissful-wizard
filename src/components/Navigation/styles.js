@@ -82,7 +82,7 @@ export const Title = styled.div`
   background: -webkit-linear-gradient(left, #000000, #8a25b1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 2em;
+  font-size: 1.7em;
 
   @media (max-width: ${breakpoints.s}px) {
     display: none;
