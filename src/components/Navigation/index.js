@@ -102,9 +102,7 @@ const Navigation = ({ siteTitle, logo, wizardIcon }) => {
             className="material-icons-outlined"
             style={{
               fontFamily: 'Material Icons',
-              background: '#000',
-              '-webkit-background-clip': 'text',
-              '-webkit-text-fill-color': 'transparent',
+              color: '#000',
               fontSize: 36,
             }}
           >

@@ -76,12 +76,7 @@ export const Title = styled.div`
 
   letter-spacing: 2px;
   margin: 0;
-  // position: relative;
-  // bottom: -10px;
-  color: #8a25b1;
-  background: -webkit-linear-gradient(left, #000000, #8a25b1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #000;
   font-size: 1.7em;
 
   @media (max-width: ${breakpoints.s}px) {
