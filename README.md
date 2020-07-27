@@ -12,9 +12,9 @@ Kick off your project with this ecommerce website. This starter ships with the m
 
 This starter also includes credentials to a Shopify demo store so you can try it out immediately without having to start a store. To use your own just change the values inside of .env.
 
-If you have questions feel free to message me on [Twitter](https://twitter.com/alexislepresle) or  [Instagram](https://instagram.com/alexislepresle) 🤙🏻
+If you have questions feel free to message me on [Twitter](https://twitter.com/alexislepresle) or [Instagram](https://instagram.com/alexislepresle) 🤙🏻
 
-For project : contact@alexislepresle.com or  [contact me](https://www.alexislepresle.com/contact/) 🤙🏻
+For project : contact@alexislepresle.com or [contact me](https://www.alexislepresle.com/contact/) 🤙🏻
 
 ## 🔥 Featured
 
@@ -29,13 +29,13 @@ For project : contact@alexislepresle.com or  [contact me](https://www.alexislepr
 - Google Analytics
 - SEO
 - Customer account from Shopify Store
-    - Create customer account
-    - Log in customer account
-    - Reset Password
-    - See all orders
-    - Order detail
-    - See all addresses (Can Create, Update, Delete and choose default address)
-    
+  - Create customer account
+  - Log in customer account
+  - Reset Password
+  - See all orders
+  - Order detail
+  - See all addresses (Can Create, Update, Delete and choose default address)
+
 ## 🚀 Quick start
 
 1.  **Create a Gatsby Shop site.**
@@ -64,8 +64,6 @@ For project : contact@alexislepresle.com or  [contact me](https://www.alexislepr
     _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
 
     Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
-
-
 
 ## 🎓 Learning Gatsby
 

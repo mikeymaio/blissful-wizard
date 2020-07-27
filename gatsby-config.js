@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
 })
 
 module.exports = {
@@ -29,17 +29,17 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-146773242-1",
+        trackingId: 'UA-146773242-1',
       },
     },
     {
-      resolve: "gatsby-source-shopify2",
+      resolve: 'gatsby-source-shopify2',
       options: {
         shopName: process.env.SHOP_NAME,
         accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
         verbose: true,
         paginationSize: 250,
-        includeCollections: ["shop", "content"],
+        includeCollections: ['shop', 'content'],
       },
     },
 

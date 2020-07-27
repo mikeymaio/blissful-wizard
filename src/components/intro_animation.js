@@ -14,7 +14,7 @@ export default props => {
     html.style.overflowY = 'hidden'
     introBackground()
 
-    setTimeout(() => enterSite(), 6000);
+    setTimeout(() => enterSite(), 6000)
   }, [])
 
   const enterSite = () => {

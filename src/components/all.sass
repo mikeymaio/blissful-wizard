@@ -6,17 +6,15 @@ $tablet: 768px !default
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap')
 
 @font-face
+  font-display: swap
   font-family: 'Pacifico'
   font-style: normal
   font-weight: 400
   src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2) format('woff2')
-  font-display: swap
-
 
 *
   box-sizing: border-box
   cursor: url("../images/magic-wand.svg"), pointer !important
-
 
 
 .img-shop
@@ -26,7 +24,7 @@ $tablet: 768px !default
     padding: 0px
 
 
-.shopIcon::after 
+.shopIcon::after
     display: inline-block
     position: absolute
     margin: 0
@@ -94,17 +92,15 @@ $tablet: 768px !default
     0%
         opacity: 0
         transform: translate3d(0, 10%, 0)
-
-
-   100%
-        opacity: 1 
+    100%
+        opacity: 1
         transform: scale3d(1, 1, 1)
 
 .fromleft
     animation-name: FromLeft
     animation-duration: 2.5s
 
-@keyframes FromLeft 
+@keyframes FromLeft
     from
         opacity: 0.7
         transform: translate3d(100%, 0, 0)
@@ -431,7 +427,7 @@ $tablet: 768px !default
     margin: 0 auto
     padding: 0
     text-align: center
-    .button 
+    .button
       display: inline-block
       text-align: center
       padding: 10px 15px
@@ -442,27 +438,23 @@ $tablet: 768px !default
       border-radius: 3px
       box-shadow: 0 1px 2px rgba(0,0,0,.3)
       cursor: pointer
-      &:hover 
+      &:hover
         color: white
         background: #009bd5
-      
+
+@keyframes unfoldIn
+    0%
+        transform: scaleY(.005) scaleX(0)
+  
+    50% 
+        transform: scaleY(.005) scaleX(1)
     
-   
-
-
-@keyframes unfoldIn 
-  0% 
-    transform: scaleY(.005) scaleX(0)
-  
-  50% 
-    transform: scaleY(.005) scaleX(1)
-  
-  100% 
-    transform: scaleY(1) scaleX(1)
+    100% 
+        transform: scaleY(1) scaleX(1)
   
 
 
-@keyframes unfoldOut 
+@keyframes unfoldOut
   0% 
     transform: scaleY(1) scaleX(1)
   
@@ -474,7 +466,7 @@ $tablet: 768px !default
   
 
 
-@keyframes zoomIn 
+@keyframes zoomIn
   0% 
     transform: scale(0)
   
@@ -483,7 +475,7 @@ $tablet: 768px !default
   
 
 
-@keyframes zoomOut 
+@keyframes zoomOut
   0% 
     transform: scale(1)
   
@@ -492,7 +484,7 @@ $tablet: 768px !default
   
 
 
-@keyframes fadeIn 
+@keyframes fadeIn
   0% 
     background: rgba(0,0,0,.0)
   
@@ -501,7 +493,7 @@ $tablet: 768px !default
   
 
 
-@keyframes fadeOut 
+@keyframes fadeOut
   0% 
     background: rgba(0,0,0,.7)
   
@@ -510,7 +502,7 @@ $tablet: 768px !default
   
 
 
-@keyframes scaleUp 
+@keyframes scaleUp
   0% 
     transform: scale(.8) translateY(1000px)
     opacity: 0
@@ -521,7 +513,7 @@ $tablet: 768px !default
   
 
 
-@keyframes scaleDown 
+@keyframes scaleDown
   0% 
     transform: scale(1) translateY(0px)
     opacity: 1
@@ -532,7 +524,7 @@ $tablet: 768px !default
   
 
 
-@keyframes scaleBack 
+@keyframes scaleBack
   0% 
     transform: scale(1)
   
@@ -541,7 +533,7 @@ $tablet: 768px !default
   
 
 
-@keyframes scaleForward 
+@keyframes scaleForward
   0% 
     transform: scale(.85)
   
@@ -550,7 +542,7 @@ $tablet: 768px !default
   
 
 
-@keyframes quickScaleDown 
+@keyframes quickScaleDown
   0% 
     transform: scale(1)
   
@@ -562,7 +554,7 @@ $tablet: 768px !default
   
 
 
-@keyframes slideUpLarge 
+@keyframes slideUpLarge
   0% 
     transform: translateY(0%)
   
@@ -571,7 +563,7 @@ $tablet: 768px !default
   
 
 
-@keyframes slideDownLarge 
+@keyframes slideDownLarge
   0% 
     transform: translateY(-100%)
   
@@ -580,7 +572,7 @@ $tablet: 768px !default
   
 
 
-@keyframes moveUp 
+@keyframes moveUp
   0% 
     transform: translateY(150px)
   
@@ -589,7 +581,7 @@ $tablet: 768px !default
   
 
 
-@keyframes moveDown 
+@keyframes moveDown
   0% 
     transform: translateY(0px)
   
@@ -598,7 +590,7 @@ $tablet: 768px !default
   
 
 
-@keyframes blowUpContent 
+@keyframes blowUpContent
   0% 
     transform: scale(1)
     opacity: 1
@@ -612,7 +604,7 @@ $tablet: 768px !default
   
 
 
-@keyframes blowUpContentTwo 
+@keyframes blowUpContentTwo
   0% 
     transform: scale(2)
     opacity: 0
@@ -623,7 +615,7 @@ $tablet: 768px !default
   
 
 
-@keyframes blowUpModal 
+@keyframes blowUpModal
   0% 
     transform: scale(0)
   
@@ -632,7 +624,7 @@ $tablet: 768px !default
   
 
 
-@keyframes blowUpModalTwo 
+@keyframes blowUpModalTwo
   0% 
     transform: scale(1)
     opacity: 1
@@ -643,7 +635,7 @@ $tablet: 768px !default
   
 
 
-@keyframes roadRunnerIn 
+@keyframes roadRunnerIn
   0% 
     transform: translateX(-1500px) skewX(30deg) scaleX(1.3)
   
@@ -655,7 +647,7 @@ $tablet: 768px !default
   
 
 
-@keyframes roadRunnerOut 
+@keyframes roadRunnerOut
   0% 
     transform: translateX(0px) skewX(0deg) scaleX(1)
   
@@ -667,7 +659,7 @@ $tablet: 768px !default
   
 
 
-@keyframes sketchIn 
+@keyframes sketchIn
 	0% 
 		stroke-dashoffset: 778
 	
@@ -676,7 +668,7 @@ $tablet: 768px !default
 	
 
 
-@keyframes sketchOut 
+@keyframes sketchOut
 	0% 
 		stroke-dashoffset: 0
 	
@@ -685,7 +677,7 @@ $tablet: 768px !default
 	
 
 
-@keyframes modalFadeIn 
+@keyframes modalFadeIn
   0% 
     background-color: transparent
   
@@ -694,7 +686,7 @@ $tablet: 768px !default
   
 
 
-@keyframes modalFadeOut 
+@keyframes modalFadeOut
   0% 
     background-color: white
   
@@ -703,7 +695,7 @@ $tablet: 768px !default
   
 
 
-@keyframes modalContentFadeIn 
+@keyframes modalContentFadeIn
   0% 
     opacity: 0
     top: -20px
@@ -714,7 +706,7 @@ $tablet: 768px !default
   
 
 
-@keyframes modalContentFadeOut 
+@keyframes modalContentFadeOut
   0% 
     opacity: 1
     top: 0px
@@ -725,7 +717,7 @@ $tablet: 768px !default
   
 
 
-@keyframes bondJamesBond 
+@keyframes bondJamesBond
   0% 
     transform: translateX(1000px)
   
@@ -747,7 +739,7 @@ $tablet: 768px !default
   
 
 
-@keyframes killShot 
+@keyframes killShot
   0% 
     transform: translateY(0) rotate(0deg)
     opacity: 1
@@ -758,7 +750,7 @@ $tablet: 768px !default
   
 
 
-@keyframes fadeToRed 
+@keyframes fadeToRed
   0% 
     background-color: rgba(black,.6)
   
@@ -767,7 +759,7 @@ $tablet: 768px !default
   
 
 
-@keyframes slowFade 
+@keyframes slowFade
   0% 
     opacity: 1
   

@@ -1,206 +1,203 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { StaticQuery, graphql } from "gatsby";
-import StoreContext, { defaultStoreContext } from "../context/store";
-import Header from "../components/header";
-import IntroAnimation from "../components/intro_animation";
-import "../components/all.sass";
-import { navigate } from "@reach/router";
-import { fairyDustCursor } from "../utils/fairy-dust.js";
-import background from "../images/trippy-background4.jpg";
-import logo from "../images/bw-logo.svg";
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { StaticQuery, graphql } from 'gatsby'
+import StoreContext, { defaultStoreContext } from '../context/store'
+import Header from '../components/header'
+import IntroAnimation from '../components/intro_animation'
+import '../components/all.sass'
+import { navigate } from '@reach/router'
+import { fairyDustCursor } from '../utils/fairy-dust.js'
+import background from '../images/trippy-background4.jpg'
+import logo from '../images/bw-logo.svg'
 
-const isBrowser = typeof window !== "undefined";
+const isBrowser = typeof window !== 'undefined'
 
 class Layout extends Component {
   getlocalStorage(value) {
     try {
-      return JSON.parse(localStorage.getItem(value));
+      return JSON.parse(localStorage.getItem(value))
     } catch (e) {
-      return "";
+      return ''
     }
   }
 
   state = {
     store: {
       ...defaultStoreContext,
-      customerAccessToken: this.getlocalStorage("customerAccessToken"),
+      customerAccessToken: this.getlocalStorage('customerAccessToken'),
       addVariantToCart: (variantId, quantity) => {
-        this.setState((state) => ({
+        this.setState(state => ({
           store: {
             ...state.store,
             adding: true,
           },
-        }));
+        }))
 
-        const { checkout, client } = this.state.store;
-        const checkoutId = checkout.id;
+        const { checkout, client } = this.state.store
+        const checkoutId = checkout.id
         const lineItemsToUpdate = [
           { variantId, quantity: parseInt(quantity, 10) },
-        ];
+        ]
 
         return client.checkout
           .addLineItems(checkoutId, lineItemsToUpdate)
-          .then((checkout) => {
-            this.setState((state) => ({
+          .then(checkout => {
+            this.setState(state => ({
               store: {
                 ...state.store,
                 checkout,
                 adding: false,
               },
-            }));
-          });
+            }))
+          })
       },
       addVariantToCartAndBuyNow: (variantId, quantity) => {
-        this.setState((state) => ({
+        this.setState(state => ({
           store: {
             ...state.store,
             adding: true,
           },
-        }));
+        }))
 
-        const { checkout, client } = this.state.store;
-        const checkoutId = checkout.id;
+        const { checkout, client } = this.state.store
+        const checkoutId = checkout.id
         const lineItemsToUpdate = [
           { variantId, quantity: parseInt(quantity, 10) },
-        ];
+        ]
         return client.checkout
           .addLineItems(checkoutId, lineItemsToUpdate)
-          .then((checkout) => {
-            this.setState((state) => ({
+          .then(checkout => {
+            this.setState(state => ({
               store: {
                 ...state.store,
                 checkout,
                 adding: false,
               },
-            }));
-            navigate(checkout.webUrl);
-          });
+            }))
+            navigate(checkout.webUrl)
+          })
       },
       removeLineItem: (client, checkoutID, lineItemID) => {
         return client.checkout
           .removeLineItems(checkoutID, [lineItemID])
-          .then((resultat) => {
-            this.setState((state) => ({
+          .then(resultat => {
+            this.setState(state => ({
               store: {
                 ...state.store,
                 checkout: resultat,
               },
-            }));
-          });
+            }))
+          })
       },
       updateLineItem: (client, checkoutID, lineItemID, quantity) => {
         const lineItemsToUpdate = [
           { id: lineItemID, quantity: parseInt(quantity, 10) },
-        ];
+        ]
         return client.checkout
           .updateLineItems(checkoutID, lineItemsToUpdate)
-          .then((resultat) => {
-            this.setState((state) => ({
+          .then(resultat => {
+            this.setState(state => ({
               store: {
                 ...state.store,
                 checkout: resultat,
               },
-            }));
-          });
+            }))
+          })
       },
-      updateFilterType: (type) => {
-        this.setState((state) => ({
+      updateFilterType: type => {
+        this.setState(state => ({
           store: {
             ...state.store,
             filteredType: type,
           },
-        }));
+        }))
       },
-      updateFilterSort: (sort) => {
-        this.setState((state) => ({
+      updateFilterSort: sort => {
+        this.setState(state => ({
           store: {
             ...state.store,
             filteredSort: sort,
           },
-        }));
+        }))
       },
-      setValue: (value) => {
+      setValue: value => {
         isBrowser &&
-          localStorage.setItem("customerAccessToken", JSON.stringify(value));
-        this.setState((state) => ({
+          localStorage.setItem('customerAccessToken', JSON.stringify(value))
+        this.setState(state => ({
           store: {
             ...state.store,
             customerAccessToken: value,
           },
-        }));
+        }))
       },
     },
-  };
+  }
 
   async initializeCheckout() {
     // Check if card exits already
-    const isBrowser = typeof window !== "undefined";
+    const isBrowser = typeof window !== 'undefined'
     const existingCheckoutID = isBrowser
-      ? localStorage.getItem("shopify_checkout_id")
-      : null;
+      ? localStorage.getItem('shopify_checkout_id')
+      : null
 
-    const setCheckoutInState = (checkout) => {
+    const setCheckoutInState = checkout => {
       if (isBrowser) {
-        localStorage.setItem(
-          "shopify_checkout_id",
-          JSON.stringify(checkout.id)
-        );
+        localStorage.setItem('shopify_checkout_id', JSON.stringify(checkout.id))
       }
 
-      this.setState((state) => ({
+      this.setState(state => ({
         store: {
           ...state.store,
           checkout,
         },
-      }));
-    };
+      }))
+    }
 
-    const createNewCheckout = () => this.state.store.client.checkout.create();
-    const fetchCheckout = (id) => this.state.store.client.checkout.fetch(id);
+    const createNewCheckout = () => this.state.store.client.checkout.create()
+    const fetchCheckout = id => this.state.store.client.checkout.fetch(id)
 
     if (existingCheckoutID) {
       try {
-        const checkout = await fetchCheckout(existingCheckoutID);
+        const checkout = await fetchCheckout(existingCheckoutID)
 
         // Make sure this cart hasn’t already been purchased.
         if (!checkout.completedAt) {
-          setCheckoutInState(checkout);
-          return;
+          setCheckoutInState(checkout)
+          return
         }
       } catch (e) {
-        localStorage.setItem("shopify_checkout_id", null);
+        localStorage.setItem('shopify_checkout_id', null)
       }
     }
 
-    const newCheckout = await createNewCheckout();
-    setCheckoutInState(newCheckout);
+    const newCheckout = await createNewCheckout()
+    setCheckoutInState(newCheckout)
   }
 
   initFairyDust() {
-    const fairyDustContainer = document.querySelector('.fairy-container');
+    const fairyDustContainer = document.querySelector('.fairy-container')
     if (!fairyDustContainer || !!this.removeFairyDust) {
-      return;
+      return
     } else {
-      this.removeFairyDust = fairyDustCursor();
+      this.removeFairyDust = fairyDustCursor()
     }
   }
 
   componentDidMount() {
-    this.initializeCheckout();
+    this.initializeCheckout()
     this.initFairyDust()
   }
 
   componentDidUpdate() {
-    this.initFairyDust();
+    this.initFairyDust()
   }
 
   componentWillUnmount() {
-    this.removeFairyDust();
+    this.removeFairyDust()
   }
 
   render() {
-    const { children } = this.props;
+    const { children } = this.props
 
     return (
       <StoreContext.Provider value={this.state.store}>
@@ -214,16 +211,16 @@ class Layout extends Component {
               }
             }
           `}
-          render={(data) => (
+          render={data => (
             <>
               <Header siteTitle={data.site.siteMetadata.title} />
               <div
                 style={{
                   background: `linear-gradient( rgba(250, 250, 250, 0.8), rgba(250, 250, 250, 0.3) ), url('${background}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center center",
-                  minHeight: "calc(100vh - 52px)",
-                  width: "100vw",
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center center',
+                  minHeight: 'calc(100vh - 52px)',
+                  width: '100vw',
                   paddingTop: 52,
                 }}
               >
@@ -237,7 +234,7 @@ class Layout extends Component {
                 />
                 <div
                   className="content has-text-centered"
-                  style={{ backgroundColor: "transparent" }}
+                  style={{ backgroundColor: 'transparent' }}
                 >
                   <p style={{ marginBottom: 0 }}>
                     <strong>Blissful Wizard, LLC &#169;2020</strong>
@@ -245,7 +242,7 @@ class Layout extends Component {
                   <div className="button-container">
                     <a
                       className="button is-dark"
-                      style={{ marginRight: "10px" }}
+                      style={{ marginRight: '10px' }}
                       target="_blank"
                       rel="noopener noreferrer"
                       href="#"
@@ -266,13 +263,13 @@ class Layout extends Component {
               <div
                 className="fairy-container"
                 style={{
-                  position: "fixed",
+                  position: 'fixed',
                   top: 0,
                   left: 0,
                   right: 0,
                   bottom: 0,
                   zIndex: 10000000,
-                  pointerEvents: "none",
+                  pointerEvents: 'none',
                 }}
               ></div>
               <IntroAnimation />
@@ -280,11 +277,11 @@ class Layout extends Component {
           )}
         />
       </StoreContext.Provider>
-    );
+    )
   }
 }
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-};
+}
 
-export default Layout;
+export default Layout
