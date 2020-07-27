@@ -1,45 +1,54 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'gatsby'
+import React from 'react'
+import SEO from "../components/seo"
+import { graphql } from "gatsby"
+import ProductList from '../components/productList';
 
-import SEO from '~/components/seo'
-import ProductGrid from '~/components/ProductGrid'
-import Modal from '~/components/_shared/Modal'
-import { NewsLetterForm } from '~/components/NewsLetter'
-
-const IndexPage = () => {
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-
-  useEffect(() => {
-    const hasJoinedMailingList = localStorage.getItem('hasJoinedMailingList');
-    const hasSeenEmailModalThisSession = sessionStorage.getItem('hasSeenEmailModal');
-
-    if (!hasJoinedMailingList && !hasSeenEmailModalThisSession) {
-      setIsEmailModalOpen(true);
-    }
-  }, [])
-
+const IndexPage = ({ data }) => {
   return (
     <>
-      <SEO
-        title="Home"
-        keywords={[
-          `blissful`,
-          `wizard`,
-          `blissful wizard`,
-          `tiedye`,
-          `tie dye`,
-          `tie-dye`,
-          `clothing`,
-          `apparel`,
-          `psychedlic`,
-        ]}
-      />
-      <ProductGrid />
-      <Modal className="one" open={isEmailModalOpen} closeModal={() => setIsEmailModalOpen(false)}>
-        <NewsLetterForm cancel={() => setIsEmailModalOpen(false)}/>
-      </Modal>
+      <SEO title="Home" />
+      <ProductList data={data} />
     </>
   )
 }
 
 export default IndexPage
+
+export const query = graphql`
+  query {
+    allShopifyProduct {
+      edges {
+        node {
+          id
+          title
+          handle
+          createdAt(fromNow: true)
+          publishedAt
+          productType
+          vendor
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+          }
+          images {
+            originalSrc
+            id
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 910) {
+                  ...GatsbyImageSharpFluid_noBase64
+                }
+              }
+            }
+          }
+          variants {
+            id
+            title
+            price
+          }
+        }
+      }
+    }
+  }
+`

@@ -107,7 +107,7 @@ export const fairyDustCursor = () => {
       applyProperties(this.element, this.initialStyles);
       this.update();
 
-      document.querySelector('.container').appendChild(this.element);
+      document.querySelector('.fairy-container').appendChild(this.element);
     };
 
     this.update = function() {

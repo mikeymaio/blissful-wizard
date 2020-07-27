@@ -14,15 +14,20 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(result => {
     result.data.allShopifyProduct.edges.forEach(({ node }) => {
+        const id = node.handle
       createPage({
-        path: `/product/${node.handle}/`,
-        component: path.resolve(`./src/templates/ProductPage/index.js`),
+        path: `/product/${id}/`,
+        component: path.resolve(`./src/templates/product-page.js`),
         context: {
-          // Data passed to context is available
-          // in page queries as GraphQL variables.
-          handle: node.handle,
+            id,
         },
       })
     })
+  })
+}
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    devtool: 'eval-source-map',
   })
 }
