@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-shopify-theme",
-  "description": "🛒 Simple theme to build a blazing simple and fast store with Gatsby and Shopify.",
+  "name": "blissful-wizard",
+  "description": "Tie Dyes and more from you're favorite wizard.",
   "version": "1.0.7",
-  "author": "Alexis Lepresle <contact@alexislepresle.com>",
+  "author": "Michael Maio <michael@michaelmaio.com>",
   "dependencies": {
     "@apollo/client": "^3.0.0-beta.34",
     "@apollo/react-hooks": "^3.1.3",
@@ -79,11 +79,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexislepresle/gatsby-shopify-theme.git"
+    "url": "git+https://github.com/mikeymaio/blissful-wizard.git"
   },
   "bugs": {
-    "url": "https://github.com/alexislepresle/gatsby-shopify-theme/issues"
+    "url": "https://github.com/mikeymaio/blissful-wizard/issues"
   },
-  "homepage": "https://github.com/alexislepresle/gatsby-shopify-theme#readme",
+  "homepage": "https://github.com/mikeymaio/blissful-wizard#readme",
   "main": "gatsby-browser.js"
 }
