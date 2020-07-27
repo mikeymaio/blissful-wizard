@@ -15,13 +15,13 @@ export default props => {
     html.style.overflowY = 'hidden'
     introBackground()
 
-    return () => (html.style.overflowY = 'scroll')
+    setTimeout(() => enterSite(), 6000);
   }, [])
 
   const enterSite = () => {
+    setModalOpen(false)
     const html = document.getElementsByTagName('html')[0]
     html.style.overflowY = 'scroll'
-    setModalOpen(false)
   }
   return (
     <Modal
@@ -60,7 +60,7 @@ export default props => {
         className="logo has-text-centered is-size-1 has-text-white"
         style={{ fontFamily: 'Lobster Two' }}
       >
-        <Flip left cascade duration={3000} delay={500}>
+        <Flip left cascade duration={2500} delay={500}>
           Blissful Wizard
         </Flip>
       </h1>
@@ -73,17 +73,17 @@ export default props => {
         className="logo-subtext has-text-centered is-size-3 is-size-4-mobile has-text-white"
         style={{ fontFamily: 'Lobster Two' }}
       >
-        <Flip left cascade duration={3000} delay={1500}>
-          Handmade in East Village, NYC
+        <Flip left cascade duration={2500} delay={1000}>
+          Handmade in the East Village, NYC
         </Flip>
       </h3>
-      <Fade duration={3000} delay={2500}>
+      {/* <Fade duration={3000} delay={2500}>
         <div className="container flex-center">
           <button class="glow" onClick={enterSite} aria-label="close">
             ENTER SITE
           </button>
         </div>
-      </Fade>
+      </Fade> */}
     </Modal>
   )
 }

@@ -3,7 +3,6 @@ export default () => {
     const SCALE = 1.05
     const DELAY = 1.3
 
-    var audio = null
     var universe = document.getElementById('universe')
 
     var targetX = window.innerWidth / 2
@@ -49,23 +48,11 @@ export default () => {
     }
 
     // Keep track of the pointer
-    window.onmousemove = function(event) {
-      if (audio == null) {
-        loadAudio()
-      }
+    // window.onmousemove = function(event) {
 
-      targetX = event.clientX
-      targetY = event.clientY
-    }
-
-    function loadAudio() {
-      // audio = new Audio(
-      //   'https://s3-us-west-2.amazonaws.com/s.cdpn.io/554945/space.mp3'
-      // )
-      // audio.loop = true
-      // audio.volume = 0.2
-      // audio.play()
-    }
+    //   targetX = event.clientX
+    //   targetY = event.clientY
+    // }
 
     function buildTunnel(count) {
       var original = document.getElementsByClassName('circle')[0]
@@ -91,27 +78,12 @@ export default () => {
       svg.removeChild(original)
     }
 
-    var oldVolume = 0.2
-
     function warp() {
       // Twinkling stars
       universe.style.opacity = Math.random() * (1 - 0.75) + 0.75
 
       // Move the stars when flying
       universe.style.backgroundPosition = -targetX + 'px ' + -targetY + 'px'
-
-      // NOTE: I'm sure this volumne calculation could be neater!
-      if (audio != null) {
-        var vol = Math.min(Math.abs(oldTargetX - targetX), 90) / 100
-
-        // Smoothe out the volume transition
-        vol = oldVolume + (vol - oldVolume) / 10
-
-        audio.volume = Math.max(vol, 0.1)
-
-        // Store the new volume
-        oldVolume = audio.volume
-      }
 
       // Store the new target
       oldTargetX = targetX
