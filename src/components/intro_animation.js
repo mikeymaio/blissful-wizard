@@ -4,7 +4,6 @@ import Fade from 'react-reveal/Fade'
 import Roll from 'react-reveal/Roll'
 import Modal from './modal'
 import logo from '../images/bw-logo.svg'
-// import logo from '../images/bw-logo-inverted.png'
 import introBackground from '../utils/intro-background'
 
 export default props => {
@@ -56,10 +55,7 @@ export default props => {
         </>
       )}
     >
-      <h1
-        className="logo has-text-centered is-size-1 has-text-white"
-        style={{ fontFamily: 'Lobster Two' }}
-      >
+      <h1 className="logo has-text-centered is-size-1 has-text-white">
         <Flip left cascade duration={2500} delay={500}>
           Blissful Wizard
         </Flip>
@@ -69,21 +65,11 @@ export default props => {
           <img src={logo} alt="Blissful Wizard Logo" />
         </Roll>
       </p>
-      <h3
-        className="logo-subtext has-text-centered is-size-3 is-size-4-mobile has-text-white"
-        style={{ fontFamily: 'Lobster Two' }}
-      >
+      <h3 className="logo-subtext has-text-centered is-size-3 is-size-4-mobile has-text-white">
         <Flip left cascade duration={2500} delay={1000}>
           Handmade in the East Village, NYC
         </Flip>
       </h3>
-      {/* <Fade duration={3000} delay={2500}>
-        <div className="container flex-center">
-          <button class="glow" onClick={enterSite} aria-label="close">
-            ENTER SITE
-          </button>
-        </div>
-      </Fade> */}
     </Modal>
   )
 }

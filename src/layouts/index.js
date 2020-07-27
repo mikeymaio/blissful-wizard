@@ -177,9 +177,22 @@ class Layout extends Component {
     setCheckoutInState(newCheckout);
   }
 
+  initFairyDust() {
+    const fairyDustContainer = document.querySelector('.fairy-container');
+    if (!fairyDustContainer || !!this.removeFairyDust) {
+      return;
+    } else {
+      this.removeFairyDust = fairyDustCursor();
+    }
+  }
+
   componentDidMount() {
     this.initializeCheckout();
-    this.removeFairyDust = fairyDustCursor();
+    this.initFairyDust()
+  }
+
+  componentDidUpdate() {
+    this.initFairyDust();
   }
 
   componentWillUnmount() {
@@ -250,7 +263,7 @@ class Layout extends Component {
                   </div>
                 </div>
               </footer>
-              <span
+              <div
                 className="fairy-container"
                 style={{
                   position: "fixed",
@@ -261,7 +274,7 @@ class Layout extends Component {
                   zIndex: 10000000,
                   pointerEvents: "none",
                 }}
-              ></span>
+              ></div>
               <IntroAnimation />
             </>
           )}
