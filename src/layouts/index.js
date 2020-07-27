@@ -175,12 +175,12 @@ class Layout extends Component {
   }
 
   initFairyDust() {
-    const fairyDustContainer = document.querySelector('.fairy-container')
-    if (!fairyDustContainer || !!this.removeFairyDust) {
-      return
-    } else {
-      this.removeFairyDust = fairyDustCursor()
-    }
+    // const fairyDustContainer = document.querySelector('.fairy-container')
+    // if (!fairyDustContainer || !!this.removeFairyDust) {
+    //   return
+    // } else {
+    //   this.removeFairyDust = fairyDustCursor()
+    // }
   }
 
   componentDidMount() {
