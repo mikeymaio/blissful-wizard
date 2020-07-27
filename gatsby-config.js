@@ -1,18 +1,24 @@
-const path = require('path')
-
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
 
 module.exports = {
   siteMetadata: {
-    title: `blissful wizard`,
+    title: `Blissful Wizard`,
     description: `Blissful Wizard Storefront`,
-    logo: 'src/images/ForWeb/medium.png',
     author: `@mikeymaio`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-layout`,
+    {
+      resolve: `gatsby-plugin-apollo-shopify`,
+      options: {
+        shopName: process.env.SHOP_NAME,
+        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -20,70 +26,36 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-layout`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#8a25b1`,
-        theme_color: `#8a25b1`,
-        display: `minimal-ui`,
-        icon: `src/images/bw-favicon.png`, // This path is relative to the root of the site.
-      },
-    },
-    {
-      resolve: `gatsby-source-shopify`,
-      options: {
-        // The domain name of your Shopify shop. This is required.
-        // Example: 'gatsby-source-shopify-test-shop' if your Shopify address is
-        // 'gatsby-source-shopify-test-shop.myshopify.com'.
-        shopName: process.env.SHOP_NAME,
-
-        // An API access token to your Shopify shop. This is required.
-        // You can generate an access token in the "Manage private apps" section
-        // of your shop's Apps settings. In the Storefront API section, be sure
-        // to select "Allow this app to access your storefront data using the
-        // Storefront API".
-        // See: https://help.shopify.com/api/custom-storefronts/storefront-api/getting-started#authentication
-        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-
-        // Set verbose to true to display a verbose output on `npm run develop`
-        // or `npm run build`. This prints which nodes are being fetched and how
-        // much time was required to fetch and process the data.
-        // Defaults to true.
-        verbose: true,
-      },
-    },
-    {
-      resolve: 'gatsby-plugin-root-import',
-      options: {
-        '~': path.join(__dirname, 'src/'),
-      },
-    },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-134421805-1",
-        anonymize: true,
-        respectDNT: true,
+        trackingId: "UA-146773242-1",
       },
     },
     {
-      resolve: 'gatsby-plugin-google-fonts',
+      resolve: "gatsby-source-shopify2",
       options: {
-        fonts: [
-          'material icons',
-          'italiana:300,400,500,700',
-          'lobster two: 300,400,500,700',
-        ],
+        shopName: process.env.SHOP_NAME,
+        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+        verbose: true,
+        paginationSize: 250,
+        includeCollections: ["shop", "content"],
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
+
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Blissful Wizard`,
+        short_name: `Blissful Wizard`,
+        start_url: `/`,
+        background_color: `#FFF`,
+        theme_color: `#FFF`,
+        display: `minimal-ui`,
+        icon: `src/images/bw-logo.jpg`,
+      },
+    },
   ],
 }

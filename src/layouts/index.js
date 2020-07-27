@@ -1,78 +1,277 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { StaticQuery, graphql } from 'gatsby'
-import styled from '@emotion/styled'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { StaticQuery, graphql } from "gatsby";
+import StoreContext, { defaultStoreContext } from "../context/store";
+import Header from "../components/header";
+import IntroAnimation from "../components/intro_animation";
+import "../components/all.sass";
+import { navigate } from "@reach/router";
+import { fairyDustCursor } from "../utils/fairy-dust.js";
+import background from "../images/trippy-background4.jpg";
+import logo from "../images/bw-logo.svg";
 
-import ContextProvider from '~/provider/ContextProvider'
+const isBrowser = typeof window !== "undefined";
 
-import { GlobalStyle } from '~/utils/styles'
-import Navigation from '~/components/Navigation'
+class Layout extends Component {
+  getlocalStorage(value) {
+    try {
+      return JSON.parse(localStorage.getItem(value));
+    } catch (e) {
+      return "";
+    }
+  }
 
-import fullLogo from '../images/logo/bw-logo-w-text.svg'
-import wizardIcon from '../images/logo/bw-logo.svg'
+  state = {
+    store: {
+      ...defaultStoreContext,
+      customerAccessToken: this.getlocalStorage("customerAccessToken"),
+      addVariantToCart: (variantId, quantity) => {
+        this.setState((state) => ({
+          store: {
+            ...state.store,
+            adding: true,
+          },
+        }));
 
-import wizardWand from '../images/wizard-wand1.png'
+        const { checkout, client } = this.state.store;
+        const checkoutId = checkout.id;
+        const lineItemsToUpdate = [
+          { variantId, quantity: parseInt(quantity, 10) },
+        ];
 
-import { fairyDustCursor } from '../utils/fairy-dust.js'
+        return client.checkout
+          .addLineItems(checkoutId, lineItemsToUpdate)
+          .then((checkout) => {
+            this.setState((state) => ({
+              store: {
+                ...state.store,
+                checkout,
+                adding: false,
+              },
+            }));
+          });
+      },
+      addVariantToCartAndBuyNow: (variantId, quantity) => {
+        this.setState((state) => ({
+          store: {
+            ...state.store,
+            adding: true,
+          },
+        }));
 
-const Wrapper = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0px 1.0875rem 1.45rem;
-  height: 100%;
-`
+        const { checkout, client } = this.state.store;
+        const checkoutId = checkout.id;
+        const lineItemsToUpdate = [
+          { variantId, quantity: parseInt(quantity, 10) },
+        ];
+        return client.checkout
+          .addLineItems(checkoutId, lineItemsToUpdate)
+          .then((checkout) => {
+            this.setState((state) => ({
+              store: {
+                ...state.store,
+                checkout,
+                adding: false,
+              },
+            }));
+            navigate(checkout.webUrl);
+          });
+      },
+      removeLineItem: (client, checkoutID, lineItemID) => {
+        return client.checkout
+          .removeLineItems(checkoutID, [lineItemID])
+          .then((resultat) => {
+            this.setState((state) => ({
+              store: {
+                ...state.store,
+                checkout: resultat,
+              },
+            }));
+          });
+      },
+      updateLineItem: (client, checkoutID, lineItemID, quantity) => {
+        const lineItemsToUpdate = [
+          { id: lineItemID, quantity: parseInt(quantity, 10) },
+        ];
+        return client.checkout
+          .updateLineItems(checkoutID, lineItemsToUpdate)
+          .then((resultat) => {
+            this.setState((state) => ({
+              store: {
+                ...state.store,
+                checkout: resultat,
+              },
+            }));
+          });
+      },
+      updateFilterType: (type) => {
+        this.setState((state) => ({
+          store: {
+            ...state.store,
+            filteredType: type,
+          },
+        }));
+      },
+      updateFilterSort: (sort) => {
+        this.setState((state) => ({
+          store: {
+            ...state.store,
+            filteredSort: sort,
+          },
+        }));
+      },
+      setValue: (value) => {
+        isBrowser &&
+          localStorage.setItem("customerAccessToken", JSON.stringify(value));
+        this.setState((state) => ({
+          store: {
+            ...state.store,
+            customerAccessToken: value,
+          },
+        }));
+      },
+    },
+  };
 
-const Layout = ({ children }) => {
-  useEffect(() => {
-    const removeFairyDustListeners = fairyDustCursor(); // returns a function to remove event listeners
+  async initializeCheckout() {
+    // Check if card exits already
+    const isBrowser = typeof window !== "undefined";
+    const existingCheckoutID = isBrowser
+      ? localStorage.getItem("shopify_checkout_id")
+      : null;
 
-    return () => removeFairyDustListeners();
-  })
-  return (
-    <ContextProvider>
-      <GlobalStyle cursor={wizardIcon} />
-      <StaticQuery
-        query={graphql`
-          query SiteTitleQuery {
-            site {
-              siteMetadata {
-                title
+    const setCheckoutInState = (checkout) => {
+      if (isBrowser) {
+        localStorage.setItem(
+          "shopify_checkout_id",
+          JSON.stringify(checkout.id)
+        );
+      }
+
+      this.setState((state) => ({
+        store: {
+          ...state.store,
+          checkout,
+        },
+      }));
+    };
+
+    const createNewCheckout = () => this.state.store.client.checkout.create();
+    const fetchCheckout = (id) => this.state.store.client.checkout.fetch(id);
+
+    if (existingCheckoutID) {
+      try {
+        const checkout = await fetchCheckout(existingCheckoutID);
+
+        // Make sure this cart hasn’t already been purchased.
+        if (!checkout.completedAt) {
+          setCheckoutInState(checkout);
+          return;
+        }
+      } catch (e) {
+        localStorage.setItem("shopify_checkout_id", null);
+      }
+    }
+
+    const newCheckout = await createNewCheckout();
+    setCheckoutInState(newCheckout);
+  }
+
+  componentDidMount() {
+    this.initializeCheckout();
+    this.removeFairyDust = fairyDustCursor();
+  }
+
+  componentWillUnmount() {
+    this.removeFairyDust();
+  }
+
+  render() {
+    const { children } = this.props;
+
+    return (
+      <StoreContext.Provider value={this.state.store}>
+        <StaticQuery
+          query={graphql`
+            query SiteTitleQuery {
+              site {
+                siteMetadata {
+                  title
+                }
               }
             }
-          }
-        `}
-        render={data => {
-          return (
+          `}
+          render={(data) => (
             <>
-              <Navigation
-                siteTitle={data.site.siteMetadata.title}
-                logo={fullLogo}
-                wizardIcon={wizardIcon}
-              />
-              <Wrapper style={{ paddingTop: 125 }}>{children}</Wrapper>
-              <footer
+              <Header siteTitle={data.site.siteMetadata.title} />
+              <div
                 style={{
-                  width: '100%',
-                  padding: 20,
-                  boxSizing: 'border-box',
+                  background: `linear-gradient( rgba(250, 250, 250, 0.8), rgba(250, 250, 250, 0.3) ), url('${background}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center center",
+                  minHeight: "calc(100vh - 52px)",
+                  width: "100vw",
+                  paddingTop: 52,
                 }}
               >
-                © {new Date().getFullYear()},{` `}
-                <a href="/legal" style={{ color: '#8a25b1' }}>
-                  Blissful Wizard, LLC
-                </a>
+                {children}
+              </div>
+              <footer className="footer">
+                <img
+                  src={logo}
+                  alt="Blissful Wizard Logo"
+                  style={{ height: 80 }}
+                />
+                <div
+                  className="content has-text-centered"
+                  style={{ backgroundColor: "transparent" }}
+                >
+                  <p style={{ marginBottom: 0 }}>
+                    <strong>Blissful Wizard, LLC &#169;2020</strong>
+                  </p>
+                  <div className="button-container">
+                    <a
+                      className="button is-dark"
+                      style={{ marginRight: "10px" }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="#"
+                    >
+                      Store Policies
+                    </a>
+                    <a
+                      className="button is-dark"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="#"
+                    >
+                      Legal
+                    </a>
+                  </div>
+                </div>
               </footer>
-              <span className="container" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 10000000, pointerEvents: 'none' }}></span>
+              <span
+                className="fairy-container"
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 10000000,
+                  pointerEvents: "none",
+                }}
+              ></span>
+              <IntroAnimation />
             </>
-          )
-        }}
-      />
-    </ContextProvider>
-  )
+          )}
+        />
+      </StoreContext.Provider>
+    );
+  }
 }
-
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Layout
+export default Layout;

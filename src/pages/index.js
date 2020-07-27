@@ -1,30 +1,54 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import SEO from "../components/seo"
+import { graphql } from "gatsby"
+import ProductList from '../components/productList';
 
-import SEO from '~/components/seo'
-import ProductGrid from '~/components/ProductGrid'
-
-const IndexPage = () => (
-  <>
-    <SEO
-      title="Home"
-      keywords={[
-        `blissful`,
-        `wizard`,
-        `blissful wizard`,
-        `tiedye`,
-        `tie dye`,
-        `tie-dye`,
-        `clothing`,
-        `apparel`,
-        `psychedlic`,
-      ]}
-    />
-    {/* <h1>Hi people</h1> */}
-    {/* <p>Welcome to your new Shop powered by Gatsby and Shopify.</p> */}
-    <ProductGrid />
-    {/* <Link to="/page-2/">Go to page 2</Link> */}
-  </>
-)
+const IndexPage = ({ data }) => {
+  return (
+    <>
+      <SEO title="Home" />
+      <ProductList data={data} />
+    </>
+  )
+}
 
 export default IndexPage
+
+export const query = graphql`
+  query {
+    allShopifyProduct {
+      edges {
+        node {
+          id
+          title
+          handle
+          createdAt(fromNow: true)
+          publishedAt
+          productType
+          vendor
+          priceRange {
+            maxVariantPrice {
+              amount
+            }
+          }
+          images {
+            originalSrc
+            id
+            localFile {
+              childImageSharp {
+                fluid(maxWidth: 910) {
+                  ...GatsbyImageSharpFluid_noBase64
+                }
+              }
+            }
+          }
+          variants {
+            id
+            title
+            price
+          }
+        }
+      }
+    }
+  }
+`
