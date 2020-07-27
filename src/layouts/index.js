@@ -206,7 +206,7 @@ class Layout extends Component {
               <Header siteTitle={data.site.siteMetadata.title} />
               <div
                 style={{
-                  background: `linear-gradient( rgba(250, 250, 250, 0.8), rgba(250, 250, 250, 0.2) ), url('${background}')`,
+                  background: `linear-gradient( rgba(250, 250, 250, 0.8), rgba(250, 250, 250, 0.3) ), url('${background}')`,
                   backgroundSize: "cover",
                   backgroundPosition: "center center",
                   minHeight: "calc(100vh - 52px)",

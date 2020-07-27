@@ -11,7 +11,7 @@ export default (props) => (
       className={`modal-background ${
         props.backgroundClass ? props.backgroundClass : ""
       }`}
-    ></div>
+    >{props.renderBackgroundHtml ? props.renderBackgroundHtml() : null}</div>
     <div
       className="modal-content"
       style={props.hideOverflow ? { overflow: "hidden" } : {}}
