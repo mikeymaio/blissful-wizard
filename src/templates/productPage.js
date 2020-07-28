@@ -17,6 +17,8 @@ const productPage = ({ data }) => {
   const context = useContext(StoreContext)
   const product = data.shopifyProduct
 
+  console.log('product: ', product);
+
   const [quantity, setQuantity] = useState(1)
   const [variant, setVariant] = useState(product.variants[0])
   const productVariant =
