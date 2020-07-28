@@ -1,70 +1,51 @@
-import React, { useState } from 'react'
-import SEO from '../../components/seo'
-import gql from 'graphql-tag'
+import React, { useState } from 'react';
+import SEO from "../../components/seo"
+import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo'
-import ConnexionLayout from '../../components/account/ConnexionLayout'
+import ConnexionLayout from "../../components/account/ConnexionLayout"
 import { navigate } from 'gatsby'
 
 const CUSTOMER_REGISTER = gql`
-  mutation customerCreate($input: CustomerCreateInput!) {
-    customerCreate(input: $input) {
-      customer {
-        id
-      }
-      customerUserErrors {
-        code
-        field
-        message
-      }
+mutation customerCreate($input: CustomerCreateInput!) {
+  customerCreate(input: $input) {
+    customer {
+      id
+    }
+    customerUserErrors {
+      code
+      field
+      message
     }
   }
+}
 `
 
 const RegisterForm = () => {
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   return (
-    <section className="hero is-transparent is-fullheight-with-navbar">
+    <section className="hero is-fullheight-with-navbar">
       <div className="hero-body">
         <div className="container">
           <div className="columns is-centered">
             <div className="column is-4 is-centered">
               <h2 className=" title has-text-centered">Create</h2>
               <Mutation mutation={CUSTOMER_REGISTER}>
-                {customerLogin => {
+                {(customerLogin) => {
                   return (
                     <>
                       <div className="field">
-                        <label
-                          className="label has-text-white"
-                          htmlFor="loginEmail"
-                        >
-                          Email
-                        </label>
+                        <label className="label has-text-white" htmlFor="loginEmail">Email</label>
                         <div className="control">
-                          <input
-                            className="input"
-                            type="email"
-                            id="loginEmail"
-                            onChange={e => setEmail(e.target.value)}
-                          />
+                          <input className="input" type="email" id="loginEmail" onChange={(e) => setEmail(e.target.value)} />
                         </div>
                       </div>
                       <div className="field">
-                        <label
-                          className="label has-text-white"
-                          htmlFor="loginPassword"
-                        >
-                          Password
-                        </label>
+                        <label className="label has-text-white" htmlFor="loginPassword">Password</label>
                         <div className="control">
-                          <input
-                            className="input"
-                            type="password"
-                            id="loginPassword"
-                            onChange={e => setPassword(e.target.value)}
-                          />
+                          <input className="input" type="password" id="loginPassword" onChange={(e) => (setPassword(e.target.value))} />
                         </div>
                       </div>
                       <div className="field">
@@ -74,18 +55,16 @@ const RegisterForm = () => {
                             onClick={() => {
                               customerLogin({
                                 variables: {
-                                  input: {
-                                    email: email,
-                                    password: password,
-                                  },
-                                },
-                              }).then(result => {
+                                  "input": {
+                                    "email": email,
+                                    "password": password,
+                                  }
+                                }
+                              }).then((result) => {
                                 navigate(`/account/login`)
                               })
                             }}
-                          >
-                            CREATE
-                          </button>
+                          >CREATE</button>
                         </div>
                       </div>
                     </>
@@ -97,8 +76,10 @@ const RegisterForm = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
+
+
 
 const Register = () => {
   return (
@@ -108,7 +89,8 @@ const Register = () => {
         <RegisterForm />
       </ConnexionLayout>
     </>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
+

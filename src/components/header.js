@@ -1,42 +1,42 @@
-import { Link } from 'gatsby' /* eslint-disable */
-import PropTypes from 'prop-types'
-import React, { useContext, useState, useEffect } from 'react'
-import StoreContext from '../context/store'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from "gatsby"; /* eslint-disable */
+import PropTypes from "prop-types";
+import React, { useContext, useState, useEffect } from "react";
+import StoreContext from "../context/store";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faShoppingBag,
   faUser,
   faSearch,
-} from '@fortawesome/free-solid-svg-icons'
+} from "@fortawesome/free-solid-svg-icons";
 
-const countQuantity = lineItems => {
-  let quantity = 0
+const countQuantity = (lineItems) => {
+  let quantity = 0;
 
-  lineItems.forEach(item => {
-    quantity = quantity + item.quantity
-  })
-  return quantity
-}
+  lineItems.forEach((item) => {
+    quantity = quantity + item.quantity;
+  });
+  return quantity;
+};
 
 const Header = ({ siteTitle }) => {
-  const context = useContext(StoreContext)
-  const { checkout } = context
+  const context = useContext(StoreContext);
+  const { checkout } = context;
   const [quantity, setQuantity] = useState(
     countQuantity(checkout ? checkout.lineItems : [])
-  )
-  const [modal, setModal] = useState(false)
-  const [search, setSearch] = useState('')
+  );
+  const [modal, setModal] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    setQuantity(countQuantity(checkout ? checkout.lineItems : []))
-  }, [checkout])
+    setQuantity(countQuantity(checkout ? checkout.lineItems : []));
+  }, [checkout]);
 
   const openSearchBar = () => {
-    setModal(true)
-  }
+    setModal(true);
+  };
   const closeSearchBar = () => {
-    setModal(false)
-  }
+    setModal(false);
+  };
 
   return (
     <>
@@ -45,25 +45,24 @@ const Header = ({ siteTitle }) => {
         role="navigation"
         aria-label="main navigation"
         style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
-          display: 'flex',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+          display: "flex",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
         }}
       >
         <div
           className="navbar-start"
           style={{
-            marginLeft: '30px',
-            width: '100%',
-            alignItems: 'center',
-            display: 'flex',
-            alignItems: 'center',
+            marginLeft: "30px",
+            width: "100%",
+            alignItems: "center",
+            display: "flex",
           }}
         >
-          <h1>
+          <h1 className="subtitle">
             <Link
               aria-label="search"
               className="has-text-black has-text-weight-bold"
@@ -75,9 +74,9 @@ const Header = ({ siteTitle }) => {
         </div>
         <div
           className="navbar-end"
-          style={{ marginRight: '30px', display: 'flex' }}
+          style={{ marginRight: "30px", display: "flex" }}
         >
-          <div className="navbar-item">
+          <div className="navbar-item" onClick={openSearchBar}>
             <FontAwesomeIcon
               className="has-text-dark is-size-5"
               onClick={openSearchBar}
@@ -111,7 +110,8 @@ const Header = ({ siteTitle }) => {
           </div>
         </div>
       </nav>
-      <div className={` ${modal === true ? 'modal is-active' : 'modal'}`}>
+
+      <div className={` ${modal === true ? "modal is-active" : "modal"}`}>
         <div className="modal-background" onClick={closeSearchBar}></div>
         <div className="modal-content">
           <div className="field">
@@ -122,7 +122,7 @@ const Header = ({ siteTitle }) => {
                   name="value"
                   type="text"
                   value={search}
-                  onChange={e => setSearch(e.target.value)}
+                  onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search"
                 />
                 <span className="icon is-right">
@@ -141,15 +141,15 @@ const Header = ({ siteTitle }) => {
         ></button>
       </div>
     </>
-  )
-}
+  );
+};
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
-}
+};
 
 Header.defaultProps = {
   siteTitle: ``,
-}
+};
 
-export default Header
+export default Header;

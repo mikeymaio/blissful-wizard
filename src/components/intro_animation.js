@@ -7,21 +7,30 @@ import logo from '../images/bw-logo.svg'
 import introBackground from '../utils/intro-background'
 
 export default props => {
-  const [modalOpen, setModalOpen] = useState(true)
+  const hasSeenIntro = !!sessionStorage.getItem('hasSeenIntro');
+  const [modalOpen, setModalOpen] = useState(!hasSeenIntro)
 
   useEffect(() => {
-    const html = document.getElementsByTagName('html')[0]
-    html.style.overflowY = 'hidden'
-    introBackground()
+    if (!hasSeenIntro) {
+      const html = document.getElementsByTagName('html')[0]
+      html.style.overflowY = 'hidden'
+      introBackground()
 
-    setTimeout(() => enterSite(), 6000)
+      setTimeout(() => enterSite(), 6000)
+    }
   }, [])
 
   const enterSite = () => {
     setModalOpen(false)
     const html = document.getElementsByTagName('html')[0]
     html.style.overflowY = 'scroll'
+    sessionStorage.setItem('hasSeenIntro', true)
   }
+
+  if (hasSeenIntro) {
+    return null;
+  }
+
   return (
     <Modal
       visible={modalOpen}
