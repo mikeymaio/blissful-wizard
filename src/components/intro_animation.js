@@ -8,7 +8,7 @@ import introBackground from '../utils/intro-background'
 
 export default props => {
   const windowGlobal = typeof window !== 'undefined' && window;
-  const hasSeenIntro = windowGlobal ? !!sessionStorage.getItem('hasSeenIntro') : false;
+  const hasSeenIntro = windowGlobal ? !!sessionStorage.getItem('hasSeenIntro') : true;
   const [modalOpen, setModalOpen] = useState(!hasSeenIntro);
 
   useEffect(() => {
