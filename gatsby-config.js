@@ -1,5 +1,5 @@
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
 })
 
 module.exports = {
@@ -27,14 +27,14 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-shopify",
+      resolve: 'gatsby-source-shopify',
       options: {
         shopName: process.env.SHOP_NAME,
         accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-        apiVersion: "2020-01",
+        apiVersion: '2020-01',
         paginationSize: 250,
-        includeCollections: ["shop", "content"]
-      }
+        includeCollections: ['shop', 'content'],
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -46,7 +46,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-146773242-1",
+        trackingId: 'UA-146773242-1',
       },
     },
     `gatsby-transformer-sharp`,

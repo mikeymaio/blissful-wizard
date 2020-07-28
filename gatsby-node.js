@@ -14,12 +14,12 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(result => {
     result.data.allShopifyProduct.edges.forEach(({ node }) => {
-        const id = node.handle
+      const id = node.handle
       createPage({
         path: `/product/${id}/`,
         component: path.resolve(`./src/templates/productPage.js`),
         context: {
-            id,
+          id,
         },
       })
     })

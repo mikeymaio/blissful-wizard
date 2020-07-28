@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import logo from '../images/bw-logo.svg'
 
 const Footer = () => {
@@ -7,7 +7,7 @@ const Footer = () => {
       <img src={logo} alt="Blissful Wizard Logo" style={{ height: 80 }} />
       <div
         className="content has-text-centered"
-        style={{ backgroundColor: "transparent" }}
+        style={{ backgroundColor: 'transparent' }}
       >
         <p style={{ marginBottom: 0 }}>
           <strong>Blissful Wizard, LLC &#169;2020</strong>
@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="button-container">
           <a
             className="button is-dark"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: '10px' }}
             target="_blank"
             rel="noopener noreferrer"
             href="#"
@@ -33,7 +33,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

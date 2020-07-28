@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import SEO from "../components/seo";
-import { graphql } from "gatsby";
-import ProductBox from "../components/ProductList/productBox";
+import React, { useState, useEffect } from 'react'
+import SEO from '../components/seo'
+import { graphql } from 'gatsby'
+import ProductBox from '../components/ProductList/productBox'
 
 const SearchPage = ({ data }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     setSearch(
       typeof document !== undefined
-        ? document.location.search.substring(7).split("=")[0]
-        : ""
-    );
-  }, []);
+        ? document.location.search.substring(7).split('=')[0]
+        : ''
+    )
+  }, [])
 
-  const { edges: products } = data.allShopifyProduct;
+  const { edges: products } = data.allShopifyProduct
   return (
     <>
       <SEO title="Home" />
@@ -28,7 +28,7 @@ const SearchPage = ({ data }) => {
                   name="value"
                   type="text"
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={e => setSearch(e.target.value)}
                   placeholder="Search"
                 />
                 <span className="icon is-right">
@@ -52,7 +52,7 @@ const SearchPage = ({ data }) => {
             <div className="columns is-multiline is-mobile">
               {products
                 .filter(
-                  (p) =>
+                  p =>
                     p.node.title.toUpperCase().includes(search.toUpperCase()) ||
                     p.node.productType
                       .toUpperCase()
@@ -70,7 +70,7 @@ const SearchPage = ({ data }) => {
                   ) : (
                     <div
                       className="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
-                      style={{ marginBottom: "20px" }}
+                      style={{ marginBottom: '20px' }}
                       key={i}
                     >
                       <ProductBox product={p} />
@@ -82,10 +82,10 @@ const SearchPage = ({ data }) => {
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default SearchPage
 
 export const query = graphql`
   query {
@@ -124,4 +124,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`

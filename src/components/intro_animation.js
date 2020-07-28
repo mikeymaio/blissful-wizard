@@ -7,7 +7,7 @@ import logo from '../images/bw-logo.svg'
 import introBackground from '../utils/intro-background'
 
 export default props => {
-  const hasSeenIntro = !!sessionStorage.getItem('hasSeenIntro');
+  const hasSeenIntro = !!sessionStorage.getItem('hasSeenIntro')
   const [modalOpen, setModalOpen] = useState(!hasSeenIntro)
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default props => {
   }
 
   if (hasSeenIntro) {
-    return null;
+    return null
   }
 
   return (
