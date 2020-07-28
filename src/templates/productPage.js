@@ -16,6 +16,7 @@ import { Flex, Box } from 'rebass'
 const productPage = ({ data }) => {
   const context = useContext(StoreContext)
   const product = data.shopifyProduct
+
   const [quantity, setQuantity] = useState(1)
   const [variant, setVariant] = useState(product.variants[0])
   const productVariant =
@@ -60,6 +61,7 @@ const productPage = ({ data }) => {
       <section className="hero is-fullheight-with-navbar">
         <div className="hero-body" style={{ display: 'block' }}>
           <div className="container">
+            {!available && <h3 className="has-text-centered has-text-danger is-size-3">This product is out of stock.</h3>}
             <Flex flexDirection={['column', null, 'row']} pt={3} px={4}>
               <Gallery product={product} />
 
@@ -86,6 +88,7 @@ const productPage = ({ data }) => {
                       <QuantityButton
                         quantity={quantity}
                         setQuantity={setQuantity}
+                        available={available}
                       />
                     </div>
                   </div>

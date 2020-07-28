@@ -12,22 +12,22 @@ const Buttons = ({ context, available, productVariant, quantity }) => {
   return (
     <div className="columns">
       <div className="column">
-        <a
+        <button
           className="button is-medium is-fullwidth"
           disabled={!available}
           onClick={handleAddToCart}
         >
           Add to Cart
-        </a>
+        </button>
       </div>
       <div className="column">
-        <a
+        <button
           className="button is-dark is-medium is-fullwidth"
           disabled={!available}
           onClick={handleAddToCart_BuyNow}
         >
           Buy It Now
-        </a>
+        </button>
       </div>
     </div>
   )

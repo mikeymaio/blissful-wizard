@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import ProductList from '../components/productList'
 
 const IndexPage = ({ data }) => {
+  console.log('data: ', data);
   return (
     <>
       <SEO title="Home" />
@@ -16,12 +17,14 @@ export default IndexPage
 
 export const query = graphql`
   query {
-    allShopifyProduct {
+    allShopifyProduct(sort: {fields: availableForSale, order: DESC}) {
       edges {
         node {
+          availableForSale
           id
           title
           handle
+          shopifyId
           createdAt(fromNow: true)
           publishedAt
           productType
@@ -42,10 +45,21 @@ export const query = graphql`
               }
             }
           }
+          options {
+            id
+            name
+            values
+          }
           variants {
             id
             title
             price
+            availableForSale
+            shopifyId
+            selectedOptions {
+              name
+              value
+            }
           }
         }
       }

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const QuantityButton = ({ quantity, setQuantity }) => {
+const QuantityButton = ({ quantity, setQuantity, available }) => {
   const increaseQuantity = () => {
-    setQuantity(q => q + 1)
+    !!available && setQuantity(q => q + 1)
   }
   const decreaseQuantity = () => {
-    setQuantity(q => (q <= 1 ? 1 : q - 1))
+    !!available && setQuantity(q => (q <= 1 ? 1 : q - 1))
   }
   return (
     <div className="field">
@@ -18,7 +18,7 @@ const QuantityButton = ({ quantity, setQuantity }) => {
             </button>
           </div>
           <div className="control">
-            <button className="button">{quantity}</button>
+            <button className="button">{!!available ? quantity : '0'}</button>
           </div>
           <div className="control">
             <button className="button" onClick={increaseQuantity}>

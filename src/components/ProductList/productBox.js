@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Img from 'gatsby-image'
+import OutOfStockOverlay from './outOfStockOverlay';
 
 const ProductBox = props => {
   const product = props.product
+
+  const [available, setAvailable] = useState(true)
+
+  useEffect(() => {
+    product.node.variants.forEach(variant => setAvailable(variant.availableForSale))
+  }, [product])
+
   return (
     <div className="box productBox" key={product.node.title}>
       <a href={`/product/${product.node.handle}`}>
@@ -20,6 +28,7 @@ const ProductBox = props => {
           ${product.node.variants[0].price}
         </p>
       </a>
+      {!available && <OutOfStockOverlay />}
     </div>
   )
 }
