@@ -60,10 +60,9 @@ const Header = ({ siteTitle }) => {
             width: '100%',
             alignItems: 'center',
             display: 'flex',
-            alignItems: 'center',
           }}
         >
-          <h1>
+          <h1 className="subtitle">
             <Link
               aria-label="search"
               className="has-text-black has-text-weight-bold"
@@ -77,7 +76,7 @@ const Header = ({ siteTitle }) => {
           className="navbar-end"
           style={{ marginRight: '30px', display: 'flex' }}
         >
-          <div className="navbar-item">
+          <div className="navbar-item" onClick={openSearchBar}>
             <FontAwesomeIcon
               className="has-text-dark is-size-5"
               onClick={openSearchBar}
@@ -111,6 +110,7 @@ const Header = ({ siteTitle }) => {
           </div>
         </div>
       </nav>
+
       <div className={` ${modal === true ? 'modal is-active' : 'modal'}`}>
         <div className="modal-background" onClick={closeSearchBar}></div>
         <div className="modal-content">

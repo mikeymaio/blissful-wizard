@@ -20,6 +20,23 @@ module.exports = {
       },
     },
     {
+      resolve: 'gatsby-plugin-purgecss',
+      options: {
+        develop: true,
+        purgeOnly: ['/all.sass'],
+      },
+    },
+    {
+      resolve: 'gatsby-source-shopify',
+      options: {
+        shopName: process.env.SHOP_NAME,
+        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
+        apiVersion: '2020-01',
+        paginationSize: 250,
+        includeCollections: ['shop', 'content'],
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
@@ -32,17 +49,6 @@ module.exports = {
         trackingId: 'UA-146773242-1',
       },
     },
-    {
-      resolve: 'gatsby-source-shopify2',
-      options: {
-        shopName: process.env.SHOP_NAME,
-        accessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-        verbose: true,
-        paginationSize: 250,
-        includeCollections: ['shop', 'content'],
-      },
-    },
-
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
