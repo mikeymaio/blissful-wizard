@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import ContextProvider from '../provider/ContextProvider'
@@ -7,15 +7,9 @@ import Footer from '../components/footer'
 import IntroAnimation from '../components/intro_animation'
 import background from '../images/trippy-background4.jpg'
 import { fairyDustCursor } from '../utils/fairy-dust.js'
-import introBackground from '../utils/intro-background'
 import '../components/all.sass'
 
-
-const Layout = props => {
-  const windowGlobal = typeof window !== 'undefined' && window;
-  const hasSeenIntro = windowGlobal ? !!sessionStorage.getItem('hasSeenIntro') : true;
-  const [modalOpen, setModalOpen] = useState(!hasSeenIntro);
-
+const Layout = ({ children }) => {
   const initFairyDust = () => {
     const fairyDustContainer = document.querySelector('.fairy-container')
     if (!fairyDustContainer) {
@@ -25,40 +19,10 @@ const Layout = props => {
     }
   }
 
-  const enterSite = () => {
-    setModalOpen(false)
-    const html = document.getElementsByTagName('html')[0]
-    html.style.overflowY = 'scroll'
-    sessionStorage.setItem('hasSeenIntro', true)
-  }
-
   useEffect(() => {
-    if (!hasSeenIntro) {
-      const html = document.getElementsByTagName('html')[0]
-      html.style.overflowY = 'hidden'
-      introBackground()
-
-      setTimeout(() => enterSite(), 6000)
-    }
     const removeFairyDust = initFairyDust();
     return () => removeFairyDust && removeFairyDust();
   }, [])
-
-  // componentDidMount() {
-  //   this.initFairyDust()
-  // }
-
-  // componentWillUnmount() {
-  //   this.removeFairyDust()
-  // }
-
-  // render() {
-    const { children } = props
-    // let hasSeenIntro = false;
-
-    // if (!hasSeenIntro) {
-    //   return <IntroAnimation />
-    // }
 
     return (
       <ContextProvider>
@@ -100,13 +64,12 @@ const Layout = props => {
                 }}
               ></div>
               <Footer />
-              <IntroAnimation modalOpen={modalOpen} setModalOpen={setModalOpen} />
+              <IntroAnimation />
             </>
           )}
         />
       </ContextProvider>
     )
-  // }
 }
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
