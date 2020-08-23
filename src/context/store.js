@@ -21,6 +21,9 @@ export const defaultStoreContext = {
   addVariantToCartAndBuyNow: () => {},
   removeLineItem: () => {},
   updateLineItem: () => {},
+  updateFilterType: () => {},
+  updateFilterSort: () => {},
+  updateFilterSize: () => {},
 }
 
 const StoreContext = React.createContext(defaultStoreContext)

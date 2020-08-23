@@ -1,186 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
-import StoreContext, { defaultStoreContext } from '../context/store'
+// import StoreContext, { defaultStoreContext } from '../context/store'
+import ContextProvider from '../provider/ContextProvider'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import IntroAnimation from '../components/intro_animation'
 import background from '../images/trippy-background4.jpg'
 import { fairyDustCursor } from '../utils/fairy-dust.js'
 import '../components/all.sass'
-import { navigate } from '@reach/router'
+
 const isBrowser = typeof window !== 'undefined'
 
 class Layout extends Component {
-  getlocalStorage(value) {
-    try {
-      return JSON.parse(localStorage.getItem(value))
-    } catch (e) {
-      return ''
-    }
-  }
-
-  state = {
-    store: {
-      ...defaultStoreContext,
-      customerAccessToken: this.getlocalStorage('customerAccessToken'),
-      addVariantToCart: (variantId, quantity) => {
-        this.setState(state => ({
-          store: {
-            ...state.store,
-            adding: true,
-          },
-        }))
-
-        const { checkout, client } = this.state.store
-        const checkoutId = checkout.id
-        const lineItemsToUpdate = [
-          { variantId, quantity: parseInt(quantity, 10) },
-        ]
-
-        return client.checkout
-          .addLineItems(checkoutId, lineItemsToUpdate)
-          .then(checkout => {
-            this.setState(state => ({
-              store: {
-                ...state.store,
-                checkout,
-                adding: false,
-              },
-            }))
-          })
-      },
-      addVariantToCartAndBuyNow: (variantId, quantity) => {
-        this.setState(state => ({
-          store: {
-            ...state.store,
-            adding: true,
-          },
-        }))
-
-        const { checkout, client } = this.state.store
-        const checkoutId = checkout.id
-        const lineItemsToUpdate = [
-          { variantId, quantity: parseInt(quantity, 10) },
-        ]
-        return client.checkout
-          .addLineItems(checkoutId, lineItemsToUpdate)
-          .then(checkout => {
-            this.setState(state => ({
-              store: {
-                ...state.store,
-                checkout,
-                adding: false,
-              },
-            }))
-            navigate(checkout.webUrl)
-          })
-      },
-      removeLineItem: (client, checkoutID, lineItemID) => {
-        return client.checkout
-          .removeLineItems(checkoutID, [lineItemID])
-          .then(resultat => {
-            this.setState(state => ({
-              store: {
-                ...state.store,
-                checkout: resultat,
-              },
-            }))
-          })
-      },
-      updateLineItem: (client, checkoutID, lineItemID, quantity) => {
-        const lineItemsToUpdate = [
-          { id: lineItemID, quantity: parseInt(quantity, 10) },
-        ]
-        return client.checkout
-          .updateLineItems(checkoutID, lineItemsToUpdate)
-          .then(resultat => {
-            this.setState(state => ({
-              store: {
-                ...state.store,
-                checkout: resultat,
-              },
-            }))
-          })
-      },
-      updateFilterType: type => {
-        this.setState(state => ({
-          store: {
-            ...state.store,
-            filteredType: type,
-          },
-        }))
-      },
-      updateFilterSize: size => {
-        this.setState(state => ({
-          store: {
-            ...state.store,
-            filteredSize: size,
-          },
-        }))
-      },
-      updateFilterSort: sort => {
-        this.setState(state => ({
-          store: {
-            ...state.store,
-            filteredSort: sort,
-          },
-        }))
-      },
-      setValue: value => {
-        isBrowser &&
-          localStorage.setItem('customerAccessToken', JSON.stringify(value))
-        this.setState(state => ({
-          store: {
-            ...state.store,
-            customerAccessToken: value,
-          },
-        }))
-      },
-    },
-  }
-
-  async initializeCheckout() {
-    // Check if card exits already
-    const isBrowser = typeof window !== 'undefined'
-    const existingCheckoutID = isBrowser
-      ? localStorage.getItem('shopify_checkout_id')
-      : null
-
-    const setCheckoutInState = checkout => {
-      if (isBrowser) {
-        localStorage.setItem('shopify_checkout_id', JSON.stringify(checkout.id))
-      }
-
-      this.setState(state => ({
-        store: {
-          ...state.store,
-          checkout,
-        },
-      }))
-    }
-
-    const createNewCheckout = () => this.state.store.client.checkout.create()
-    const fetchCheckout = id => this.state.store.client.checkout.fetch(id)
-
-    if (existingCheckoutID) {
-      try {
-        const checkout = await fetchCheckout(existingCheckoutID)
-
-        // Make sure this cart hasn’t already been purchased.
-        if (!checkout.completedAt) {
-          setCheckoutInState(checkout)
-          return
-        }
-      } catch (e) {
-        localStorage.setItem('shopify_checkout_id', null)
-      }
-    }
-
-    const newCheckout = await createNewCheckout()
-    setCheckoutInState(newCheckout)
-  }
-
   initFairyDust() {
     const fairyDustContainer = document.querySelector('.fairy-container')
     if (!fairyDustContainer || !!this.removeFairyDust) {
@@ -191,11 +23,6 @@ class Layout extends Component {
   }
 
   componentDidMount() {
-    this.initializeCheckout()
-    this.initFairyDust()
-  }
-
-  componentDidUpdate() {
     this.initFairyDust()
   }
 
@@ -207,7 +34,8 @@ class Layout extends Component {
     const { children } = this.props
 
     return (
-      <StoreContext.Provider value={this.state.store}>
+      // <StoreContext.Provider value={this.state.store}>
+      <ContextProvider>
         <StaticQuery
           query={graphql`
             query SiteTitleQuery {
@@ -250,7 +78,8 @@ class Layout extends Component {
             </>
           )}
         />
-      </StoreContext.Provider>
+      {/* </StoreContext.Provider> */}
+      </ContextProvider>
     )
   }
 }

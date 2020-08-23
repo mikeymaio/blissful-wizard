@@ -17,8 +17,6 @@ const productPage = ({ data }) => {
   const context = useContext(StoreContext)
   const product = data.shopifyProduct
 
-  console.log('product: ', product);
-
   const [quantity, setQuantity] = useState(1)
   const [variant, setVariant] = useState(product.variants[0])
   const productVariant =
@@ -76,7 +74,7 @@ const productPage = ({ data }) => {
               >
                 <div>
                   <ProductInfo product={product} />
-                  <div className="columns">
+                  {/* <div className="columns">
                     {product.options.map(options => (
                       <div className="column">
                         <VariantSelectors
@@ -93,7 +91,7 @@ const productPage = ({ data }) => {
                         available={available}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <br />
 
                   <Buttons
