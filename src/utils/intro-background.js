@@ -3,15 +3,12 @@ export default () => {
   const SCALE = 1.05
   const DELAY = 1.3
 
-  var universe = document.getElementById('universe')
+  let universe = document.getElementById('universe')
 
-  var targetX = window.innerWidth / 2
-  var targetY = window.innerHeight / 2
+  let targetX = window.innerWidth / 2
+  let targetY = window.innerHeight / 2
 
-  // var oldTargetX = targetX
-  // var oldTargetY = targetY
-  // var counter = 0
-  var circles = []
+  let circles = []
 
   const Circle = function(element) {
     this.element = element
@@ -22,13 +19,11 @@ export default () => {
   }
 
   Circle.prototype.transform = function() {
-    var translate = 'translate(' + this.x + ', ' + this.y + ')'
-    var scale = 'scale(' + this.scaleLevel + ', ' + this.scaleLevel + ')'
+    let translate = 'translate(' + this.x + ', ' + this.y + ')'
+    let scale = 'scale(' + this.scaleLevel + ', ' + this.scaleLevel + ')'
 
-    var t = translate + ' ' + scale
+    let t = translate + ' ' + scale
     this.element.setAttribute('transform', t)
-
-    //this.element.style.transform = translate + " " + scale;
   }
 
   Circle.prototype.scale = function(scale) {
@@ -55,20 +50,20 @@ export default () => {
   // }
 
   function buildTunnel(count) {
-    var original = document.getElementsByClassName('circle')[0]
-    var svg = document.querySelector('.svg-wrapper > svg')
+    let original = document.getElementsByClassName('circle')[0]
+    let svg = document.querySelector('.svg-wrapper > svg')
 
-    for (var i = 0; i < count; i++) {
-      var element = original.cloneNode(true)
+    for (let i = 0; i < count; i++) {
+      let element = original.cloneNode(true)
       svg.appendChild(element)
 
-      var circle = new Circle(element)
+      let circle = new Circle(element)
       circle.scale(Math.pow(SCALE, i + 1))
       circle.setHue((i * 5) % 360)
 
-      var box = circle.element.getBBox()
-      var x = targetX - (box.width * circle.scaleLevel) / 2
-      var y = targetY - (box.height * circle.scaleLevel) / 2
+      let box = circle.element.getBBox()
+      let x = targetX - (box.width * circle.scaleLevel) / 2
+      let y = targetY - (box.height * circle.scaleLevel) / 2
 
       circle.translate(x, y)
 
@@ -89,17 +84,17 @@ export default () => {
     // oldTargetX = targetX
     // oldTargetY = targetY
 
-    for (var i = 0; i < circles.length; i++) {
-      var circle = circles[i]
+    for (let i = 0; i < circles.length; i++) {
+      let circle = circles[i]
 
-      var box = circle.element.getBBox()
+      let box = circle.element.getBBox()
 
       // Work out the transforms
       let x2 = targetX - (box.width * circle.scaleLevel) / 2
       let y2 = targetY - (box.height * circle.scaleLevel) / 2
 
       // Smoothe it out a little
-      var speed = (i + 1) * DELAY
+      let speed = (i + 1) * DELAY
       x2 = circle.x + (x2 - circle.x) / speed
       y2 = circle.y + (y2 - circle.y) / speed
 
