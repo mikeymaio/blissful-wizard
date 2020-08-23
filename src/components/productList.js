@@ -34,9 +34,9 @@ const ProductList = ({ data }) => {
             <div className="column is-2-desktop is-6-mobile">
               <Collection type={type} setType={setType} products={products} />
             </div>
-            <div className="column is-2-desktop is-6-mobile">
+            {/* <div className="column is-2-desktop is-6-mobile">
               <Size size={size} setSize={setSize} products={products} />
-            </div>
+            </div> */}
           </div>
           <div
             className="columns is-multiline is-mobile"

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
-// import StoreContext, { defaultStoreContext } from '../context/store'
 import ContextProvider from '../provider/ContextProvider'
 import Header from '../components/header'
 import Footer from '../components/footer'
@@ -34,7 +33,6 @@ class Layout extends Component {
     const { children } = this.props
 
     return (
-      // <StoreContext.Provider value={this.state.store}>
       <ContextProvider>
         <StaticQuery
           query={graphql`
@@ -78,7 +76,6 @@ class Layout extends Component {
             </>
           )}
         />
-      {/* </StoreContext.Provider> */}
       </ContextProvider>
     )
   }
