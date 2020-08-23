@@ -9,8 +9,6 @@ import background from '../images/trippy-background4.jpg'
 import { fairyDustCursor } from '../utils/fairy-dust.js'
 import '../components/all.sass'
 
-const isBrowser = typeof window !== 'undefined'
-
 class Layout extends Component {
   initFairyDust() {
     const fairyDustContainer = document.querySelector('.fairy-container')

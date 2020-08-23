@@ -1,26 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import Client from 'shopify-buy'
-
-// import Context from '../context/StoreContext'
 import Context, { defaultStoreContext } from '../context/store'
 import { navigate } from '@reach/router'
 
-// const client = Client.buildClient({
-//   storefrontAccessToken: process.env.SHOPIFY_ACCESS_TOKEN,
-//   domain: `${process.env.SHOP_NAME}.myshopify.com`,
-// })
+const isBrowser = typeof window !== 'undefined'
 
 const ContextProvider = ({ children }) => {
-  // let initialStoreState = {
-  //   client,
-  //   adding: false,
-  //   checkout: { lineItems: [] },
-  //   products: [],
-  //   shop: {},
-  //   filteredType: 'all',
-  //   filterSize: 'all',
-  //   filteredSort: 'featured',
-  // }
+  const getlocalStorage = value => {
+    try {
+      return JSON.parse(localStorage.getItem(value))
+    } catch (e) {
+      return ''
+    }
+  }
 
   const [store, updateStore] = useState(defaultStoreContext)
   let isRemoved = false
@@ -79,6 +71,7 @@ const ContextProvider = ({ children }) => {
     <Context.Provider
       value={{
         ...store,
+        customerAccessToken: getlocalStorage('customerAccessToken'),
         addVariantToCart: (variantId, quantity) => {
           if (variantId === '' || !quantity) {
             console.error('Both a size and quantity are required.')
@@ -166,6 +159,16 @@ const ContextProvider = ({ children }) => {
           updateStore(prevState => {
             return { ...prevState, filteredSort: sort }
           })
+        },
+        setValue: value => {
+          isBrowser &&
+            localStorage.setItem('customerAccessToken', JSON.stringify(value))
+          this.setState(state => ({
+            store: {
+              ...state.store,
+              customerAccessToken: value,
+            },
+          }))
         },
       }}
     >
