@@ -111,6 +111,14 @@ class Layout extends Component {
           },
         }))
       },
+      updateFilterSize: size => {
+        this.setState(state => ({
+          store: {
+            ...state.store,
+            filteredSize: size,
+          },
+        }))
+      },
       updateFilterSort: sort => {
         this.setState(state => ({
           store: {

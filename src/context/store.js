@@ -13,6 +13,7 @@ export const defaultStoreContext = {
   products: [],
   shop: {},
   filteredType: 'all',
+  filterSize: 'all',
   filteredSort: 'featured',
   customerAccessToken: null,
   setValue: () => {},

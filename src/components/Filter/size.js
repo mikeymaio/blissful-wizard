@@ -1,18 +1,20 @@
 import React from 'react'
+import { find } from 'lodash/find';
 
-const Collection = ({ type, setType, products }) => {
-  const productTypes = []
-  const types = []
-  types.push(
+const Size = ({ size, setSize, products }) => {
+  const productSizes = []
+  const sizes = []
+  sizes.push(
     <option value="all" key="-1">
       All
     </option>
   )
+
   products.map((t, i) => {
     let type = t.node.productType
-    if (!productTypes.includes(type) && type.length > 0) {
-      productTypes.push(type)
-      types.push(
+    if (!productSizes.includes(type) && type.length > 0) {
+      productSizes.push(type)
+      sizes.push(
         <option key={i} value={type}>
           {type}
         </option>
@@ -20,19 +22,21 @@ const Collection = ({ type, setType, products }) => {
     }
     return null
   })
-  productTypes.sort()
+
+  productSizes.sort()
+
   return (
     <label htmlFor="filter" className="has-text-weight-semibold is-uppercase">
-      TYPE:
+      SIZE:
       <div className="field">
         <div className="control">
           <div className="select">
             <select
-              defaultvalues={type}
-              onChange={e => setType(e.target.value)}
+              defaultvalues={size}
+              onChange={e => setSize(e.target.value)}
               id="filter"
             >
-              {types}
+              {sizes}
             </select>
           </div>
         </div>
@@ -41,4 +45,4 @@ const Collection = ({ type, setType, products }) => {
   )
 }
 
-export default Collection
+export default Size

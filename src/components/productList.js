@@ -3,12 +3,14 @@ import StoreContext from '../context/store'
 import ProductBox from './ProductList/productBox'
 import Sort from './Filter/sort'
 import Collection from './Filter/collection'
+import Size from './Filter/size'
 
 const ProductList = ({ data }) => {
   const { edges: products } = data.allShopifyProduct
   const context = useContext(StoreContext)
   const [type, setType] = useState(context.filteredType)
   const [sort, setSort] = useState(context.filteredSort)
+  const [size, setSize] = useState(context.filteredSize)
 
   useEffect(() => {
     context.updateFilterType(type)
@@ -31,6 +33,9 @@ const ProductList = ({ data }) => {
             </div>
             <div className="column is-2-desktop is-6-mobile">
               <Collection type={type} setType={setType} products={products} />
+            </div>
+            <div className="column is-2-desktop is-6-mobile">
+              <Size size={size} setSize={setSize} products={products} />
             </div>
           </div>
           <div

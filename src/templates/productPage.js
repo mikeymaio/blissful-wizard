@@ -106,7 +106,7 @@ const productPage = ({ data }) => {
                   <div
                     key={`body`}
                     id="content"
-                    className="content"
+                    className="content py-4 px-4"
                     dangerouslySetInnerHTML={{
                       __html: product.descriptionHtml,
                     }}
@@ -115,7 +115,7 @@ const productPage = ({ data }) => {
               </Box>
             </Flex>
           </div>
-          <div className="container has-text-centered">
+          <div className="container has-text-centered py-5">
             <a className="is-medium button" href="/">
               {' '}
               ← Back to the Store

@@ -77,7 +77,7 @@ const Gallery = ({ product }) => {
         py={2}
         px={[2, null, 3]}
         order={[1, null, 2]}
-        className="img-hover-zoom--zoom-n-rotate img-hover-zoom"
+        // className="img-hover-zoom--zoom-n-rotate img-hover-zoom"
       >
         <Img
           fluid={currentImage.localFile.childImageSharp.fluid}
