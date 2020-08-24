@@ -15,61 +15,61 @@ const Layout = ({ children }) => {
     if (!fairyDustContainer) {
       return
     } else {
-      fairyDustCursor();
+      fairyDustCursor()
     }
   }
 
   useEffect(() => {
-    const removeFairyDust = initFairyDust();
-    return () => removeFairyDust && removeFairyDust();
+    const removeFairyDust = initFairyDust()
+    return () => removeFairyDust && removeFairyDust()
   }, [])
 
-    return (
-      <ContextProvider>
-        <StaticQuery
-          query={graphql`
-            query SiteTitleQuery {
-              site {
-                siteMetadata {
-                  title
-                }
+  return (
+    <ContextProvider>
+      <StaticQuery
+        query={graphql`
+          query SiteTitleQuery {
+            site {
+              siteMetadata {
+                title
               }
             }
-          `}
-          render={data => (
-            <>
-              <Header siteTitle={data.site.siteMetadata.title} />
-              <div
-                style={{
-                  background: `linear-gradient( rgba(250, 250, 250, 0.8), rgba(250, 250, 250, 0.3) ), url('${background}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center center',
-                  minHeight: 'calc(100vh - 52px)',
-                  width: '100vw',
-                  paddingTop: 52,
-                }}
-              >
-                {children}
-              </div>
-              <div
-                className="fairy-container"
-                style={{
-                  position: 'fixed',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  zIndex: 10000000,
-                  pointerEvents: 'none',
-                }}
-              ></div>
-              <Footer />
-              <IntroAnimation />
-            </>
-          )}
-        />
-      </ContextProvider>
-    )
+          }
+        `}
+        render={data => (
+          <>
+            <Header siteTitle={data.site.siteMetadata.title} />
+            <div
+              style={{
+                background: `linear-gradient( rgba(250, 250, 250, 0.97), rgba(250, 250, 250, 0.87) ), url('${background}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                minHeight: 'calc(100vh - 52px)',
+                width: '100vw',
+                paddingTop: 52,
+              }}
+            >
+              {children}
+            </div>
+            <div
+              className="fairy-container"
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 10000000,
+                pointerEvents: 'none',
+              }}
+            ></div>
+            <Footer />
+            <IntroAnimation />
+          </>
+        )}
+      />
+    </ContextProvider>
+  )
 }
 Layout.propTypes = {
   children: PropTypes.node.isRequired,

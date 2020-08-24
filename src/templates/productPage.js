@@ -61,7 +61,11 @@ const productPage = ({ data }) => {
       <section className="hero is-fullheight-with-navbar">
         <div className="hero-body" style={{ display: 'block' }}>
           <div className="container">
-            {!available && <h3 className="has-text-centered has-text-danger is-size-3">This product is out of stock.</h3>}
+            {!available && (
+              <h3 className="has-text-centered has-text-danger is-size-3">
+                This product is out of stock.
+              </h3>
+            )}
             <Flex flexDirection={['column', null, 'row']} pt={3} px={4}>
               <Gallery product={product} />
 
@@ -74,7 +78,7 @@ const productPage = ({ data }) => {
               >
                 <div>
                   <ProductInfo product={product} />
-                  {/* <div className="columns">
+                  <div className="columns">
                     {product.options.map(options => (
                       <div className="column">
                         <VariantSelectors
@@ -84,14 +88,14 @@ const productPage = ({ data }) => {
                         />
                       </div>
                     ))}
-                    <div className="column is-3">
+                    {/* <div className="column is-3">
                       <QuantityButton
                         quantity={quantity}
                         setQuantity={setQuantity}
                         available={available}
                       />
-                    </div>
-                  </div> */}
+                    </div> */}
+                  </div>
                   <br />
 
                   <Buttons
