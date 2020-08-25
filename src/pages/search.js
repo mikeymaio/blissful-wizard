@@ -89,9 +89,10 @@ export default SearchPage
 
 export const query = graphql`
   query {
-    allShopifyProduct {
+    allShopifyProduct(sort: { fields: availableForSale, order: DESC }) {
       edges {
         node {
+          availableForSale
           id
           title
           handle
@@ -119,6 +120,7 @@ export const query = graphql`
             id
             title
             price
+            availableForSale
           }
         }
       }
