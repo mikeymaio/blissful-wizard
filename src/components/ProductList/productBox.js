@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import Img from 'gatsby-image'
-import OutOfStockOverlay from './outOfStockOverlay';
+import OutOfStockOverlay from './outOfStockOverlay'
 
 const ProductBox = props => {
   const product = props.product
 
   const [available, setAvailable] = useState(true)
+  const [sizes, setSizes] = useState([])
+
+  const getSizes = variant => {
+    const sizes = []
+    if (variant.selectedOptions && variant.selectedOptions.length) {
+      variant.selectedOptions.forEach(v => {
+        if (v.name === 'Size') {
+          sizes.push(v.value)
+        }
+      })
+      setSizes(sizes)
+    }
+  }
 
   useEffect(() => {
-    product.node.variants.forEach(variant => setAvailable(variant.availableForSale))
+    product.node.variants.forEach(variant => {
+      setAvailable(variant.availableForSale)
+      getSizes(variant)
+    })
   }, [product])
 
   return (
@@ -24,9 +40,10 @@ const ProductBox = props => {
         <p className="has-text-weight-semibold has-text-black">
           {product.node.title}
         </p>
-        <p className="has-text-weight-light has-text-grey">
-          ${product.node.variants[0].price}
-        </p>
+        {sizes.length && (
+          <p className="has-text-black">Size: {sizes.toString()}</p>
+        )}
+        <p className="has-text-grey">${product.node.variants[0].price}</p>
       </a>
       {!available && <OutOfStockOverlay />}
     </div>
