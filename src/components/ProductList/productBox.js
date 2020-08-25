@@ -40,9 +40,9 @@ const ProductBox = props => {
         <p className="has-text-weight-semibold has-text-black">
           {product.node.title}
         </p>
-        {sizes.length && (
+        {!!sizes.length ? (
           <p className="has-text-black">Size: {sizes.toString()}</p>
-        )}
+        ) : null}
         <p className="has-text-grey">${product.node.variants[0].price}</p>
       </a>
       {!available && <OutOfStockOverlay />}
