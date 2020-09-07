@@ -60,12 +60,14 @@ const Contact = () => {
                   placeholder="Name"
                   name="name"
                   aria-label="name"
+                  required
                 />
                 <input
                   type="text"
                   placeholder="Email"
                   name="email"
                   aria-label="email address"
+                  required
                 />
                 {/* <input
                   className="gutter"
@@ -93,6 +95,7 @@ const Contact = () => {
                   placeholder="Leave a message"
                   name="message"
                   aria-label="message"
+                  required
                 ></textarea>
                 <input type="submit" value="Send" aria-label="submit" />
               </form>
