@@ -2,7 +2,6 @@ export const fairyDustCursor = () => {
   const possibleColors = ['#D61C59', '#E7D84B', '#1B8798']
   const particles = []
   let width = window.innerWidth
-  let height = window.innerHeight
   let cursor = { x: width / 2, y: width / 2 }
 
   function init() {
@@ -29,7 +28,6 @@ export const fairyDustCursor = () => {
 
   function onWindowResize(e) {
     width = window.innerWidth
-    height = window.innerHeight
   }
 
   function onTouchMove(e) {

@@ -65,7 +65,7 @@ const Header = ({ siteTitle }) => {
           <h1 className="subtitle">
             <Link
               aria-label="search"
-              className="has-text-black has-text-weight-bold logo-nav"
+              className="has-text-black logo-nav"
               to="/"
             >
               {siteTitle}
