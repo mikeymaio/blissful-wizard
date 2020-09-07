@@ -83,14 +83,14 @@ const Header = ({ siteTitle }) => {
               icon={faSearch}
             />
           </div>
-          <div className="navbar-item">
+          {/* <div className="navbar-item">
             <Link aria-label="cart" to="/account/login">
               <FontAwesomeIcon
                 icon={faUser}
                 className="is-size-5 has-text-dark"
               />
             </Link>
-          </div>
+          </div> */}
           <div className="navbar-item">
             <Link aria-label="cart" to="/cart">
               {quantity > 0 ? (
