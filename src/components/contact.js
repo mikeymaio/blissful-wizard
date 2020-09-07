@@ -49,10 +49,10 @@ const Contact = () => {
               </button>
               <form
                 className="contact-form"
-                action=""
+                // action=""
                 name="contact"
-                method="POST"
-                data-netlify="true"
+                // method="POST"
+                netlify
               >
                 <input
                   className="gutter"
@@ -67,13 +67,13 @@ const Contact = () => {
                   name="email"
                   aria-label="email address"
                 />
-                <input
+                {/* <input
                   className="gutter"
                   type="text"
                   placeholder="Subject"
                   name="subject"
                   aria-label="subject"
-                />
+                /> */}
                 {/* <input
                   className="gutter"
                   type="text"
