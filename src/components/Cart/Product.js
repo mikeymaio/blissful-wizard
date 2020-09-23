@@ -4,6 +4,8 @@ import StoreContext from '../../context/store'
 const Product = ({ key, line_item }) => {
   const context = useContext(StoreContext)
 
+  console.log('line_item: ', line_item)
+
   const imageItem = line_item.variant.image && (
     <figure className="image is-96x96" style={{ margin: 'auto' }}>
       <img
@@ -24,6 +26,11 @@ const Product = ({ key, line_item }) => {
           <p className="has-text-weight-semibold is-size-5 has-text-black">
             {line_item.title} ({line_item.variant.title}){' '}
           </p>
+          {line_item.customAttributes.map(a => (
+            <p className="has-text-weight-semibold has-text-black">
+              {`${a.key}: ${a.value}`}
+            </p>
+          ))}
           <p
             className="has-text-weight-normal has-text-danger"
             onClick={removeItem}
@@ -44,6 +51,11 @@ const Product = ({ key, line_item }) => {
             <p className="has-text-weight-semibold is-size-5 has-text-black">
               {line_item.title}
             </p>
+            {line_item.customAttributes.map(a => (
+              <p className="has-text-weight-semibold has-text-black">
+                {`${a.key}: ${a.value}`}
+              </p>
+            ))}
             <p className="has-text-weight-normal has-text-black">
               {line_item.variant.title}
             </p>

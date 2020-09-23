@@ -13,16 +13,35 @@ import Buttons from '../components/ProductPage/Buttons'
 import Gallery from '../components/ProductPage/Gallery'
 import { Flex, Box } from 'rebass'
 
+const patchOptions = {
+  id: 'Shopify__ProductOption__Patch',
+  name: 'Patch',
+  values: ['None', 'Bear', 'Butterfly', 'Strawberry'],
+}
+
+const patternOptions = {
+  id: 'Shopify__ProductOption__Pattern',
+  name: 'Pattern',
+  values: ['Spiral', 'Bullseye', 'Tiger Stripes', 'Random', 'Reverse Tiedye'],
+}
+
+const customOptions = [patchOptions, patternOptions]
+
 const productPage = ({ data }) => {
   const context = useContext(StoreContext)
   const product = data.shopifyProduct
+  const isCustom = product.tags.indexOf('custom') > -1
 
   const [quantity, setQuantity] = useState(1)
   const [variant, setVariant] = useState(product.variants[0])
   const productVariant =
     context.client.product.helpers.variantForOptions(product, variant) ||
     variant
+
+  const [customAttributes, setCustomAttributes] = useState([])
   const [available, setAvailable] = useState(productVariant.availableForSale)
+
+  const [isReverse, setIsReverse] = useState(false)
 
   useEffect(() => {
     let defaultOptionValues = {}
@@ -48,11 +67,34 @@ const productPage = ({ data }) => {
 
   const handleOptionChange = event => {
     const { target } = event
+    console.log('target: ', target)
     setVariant(prevState => ({
       ...prevState,
       [target.name]: target.value,
-      ...console.log(variant),
     }))
+
+    const isCustomAttribute =
+      customOptions.findIndex(o => o.name === target.name) > -1
+
+    console.log('isCustomAttribute: ', isCustomAttribute)
+
+    if (isCustomAttribute) {
+      if (target.name === 'Pattern' && target.value === 'Reverse Tiedye') {
+        setIsReverse(true)
+      } else if (
+        target.name === 'Pattern' &&
+        target.value !== 'Reverse Tiedye'
+      ) {
+        setIsReverse(false)
+      }
+      setCustomAttributes(prevState => [
+        ...prevState,
+        {
+          key: target.name,
+          value: target.value,
+        },
+      ])
+    }
   }
 
   return (
@@ -85,9 +127,37 @@ const productPage = ({ data }) => {
                           key={options.id.toString()}
                           onChange={handleOptionChange}
                           options={options}
+                          disabled={isReverse}
                         />
                       </div>
                     ))}
+                    {/* <div className="column is-3">
+                      <QuantityButton
+                        quantity={quantity}
+                        setQuantity={setQuantity}
+                        available={available}
+                      />
+                    </div> */}
+                  </div>
+                  <br />
+
+                  <div className="columns">
+                    {/* {product.options.map(options => ( */}
+                    <div className="column">
+                      <VariantSelectors
+                        key={patchOptions.id}
+                        onChange={handleOptionChange}
+                        options={patchOptions}
+                      />
+                    </div>
+                    <div className="column">
+                      <VariantSelectors
+                        key={patchOptions.id}
+                        onChange={handleOptionChange}
+                        options={patternOptions}
+                      />
+                    </div>
+                    {/* ))} */}
                     {/* <div className="column is-3">
                       <QuantityButton
                         quantity={quantity}
@@ -103,6 +173,7 @@ const productPage = ({ data }) => {
                     available={available}
                     quantity={quantity}
                     productVariant={productVariant}
+                    customAttributes={customAttributes}
                   />
                   <hr />
                   <div
@@ -138,6 +209,7 @@ export const query = graphql`
       id
       title
       handle
+      tags
       productType
       descriptionHtml
       shopifyId
