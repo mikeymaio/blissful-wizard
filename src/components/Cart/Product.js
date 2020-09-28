@@ -4,8 +4,6 @@ import StoreContext from '../../context/store'
 const Product = ({ key, line_item }) => {
   const context = useContext(StoreContext)
 
-  console.log('line_item: ', line_item)
-
   const imageItem = line_item.variant.image && (
     <figure className="image is-96x96" style={{ margin: 'auto' }}>
       <img

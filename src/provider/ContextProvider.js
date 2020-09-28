@@ -101,7 +101,7 @@ const ContextProvider = ({ children }) => {
               })
             })
         },
-        addVariantToCartAndBuyNow: (variantId, quantity) => {
+        addVariantToCartAndBuyNow: (variantId, quantity, customAttributes) => {
           if (variantId === '' || !quantity) {
             console.error('Both a size and quantity are required.')
             return
@@ -115,7 +115,11 @@ const ContextProvider = ({ children }) => {
 
           const checkoutId = checkout.id
           const lineItemsToUpdate = [
-            { variantId, quantity: parseInt(quantity, 10) },
+            {
+              variantId,
+              quantity: parseInt(quantity, 10),
+              customAttributes: [...customAttributes],
+            },
           ]
 
           return client.checkout

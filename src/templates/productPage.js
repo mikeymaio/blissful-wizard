@@ -11,21 +11,17 @@ import VariantSelectors from '../components/ProductPage/VariantSelectors'
 import QuantityButton from '../components/ProductPage/QuantityButton'
 import Buttons from '../components/ProductPage/Buttons'
 import Gallery from '../components/ProductPage/Gallery'
+import { customTieDyeOptions } from '../components/ProductPage/customTieDyeOptions'
 import { Flex, Box } from 'rebass'
 
-const patchOptions = {
-  id: 'Shopify__ProductOption__Patch',
-  name: 'Patch',
-  values: ['None', 'Bear', 'Butterfly', 'Strawberry'],
-}
-
-const patternOptions = {
-  id: 'Shopify__ProductOption__Pattern',
-  name: 'Pattern',
-  values: ['Spiral', 'Bullseye', 'Tiger Stripes', 'Random', 'Reverse Tiedye'],
-}
-
-const customOptions = [patchOptions, patternOptions]
+const [
+  patchOptions,
+  patchPlacementOptions,
+  patternOptions,
+  color1Options,
+  color2Options,
+  color3Options,
+] = customTieDyeOptions
 
 const productPage = ({ data }) => {
   const context = useContext(StoreContext)
@@ -38,9 +34,10 @@ const productPage = ({ data }) => {
     context.client.product.helpers.variantForOptions(product, variant) ||
     variant
 
+  const [selectedVariantPrice, setSelectedVariantPrice] = useState(undefined)
+
   const [customAttributes, setCustomAttributes] = useState([])
   const [available, setAvailable] = useState(productVariant.availableForSale)
-
   const [isReverse, setIsReverse] = useState(false)
 
   useEffect(() => {
@@ -53,6 +50,7 @@ const productPage = ({ data }) => {
 
   useEffect(() => {
     checkAvailability(product.shopifyId)
+    setSelectedVariantPrice(productVariant.price)
   }, [productVariant])
 
   const checkAvailability = productId => {
@@ -67,16 +65,13 @@ const productPage = ({ data }) => {
 
   const handleOptionChange = event => {
     const { target } = event
-    console.log('target: ', target)
     setVariant(prevState => ({
       ...prevState,
       [target.name]: target.value,
     }))
 
     const isCustomAttribute =
-      customOptions.findIndex(o => o.name === target.name) > -1
-
-    console.log('isCustomAttribute: ', isCustomAttribute)
+      customTieDyeOptions.findIndex(o => o.name === target.name) > -1
 
     if (isCustomAttribute) {
       if (target.name === 'Pattern' && target.value === 'Reverse Tiedye') {
@@ -119,7 +114,10 @@ const productPage = ({ data }) => {
                 order={3}
               >
                 <div>
-                  <ProductInfo product={product} />
+                  <ProductInfo
+                    product={product}
+                    selectedVariantPrice={selectedVariantPrice}
+                  />
                   <div className="columns">
                     {product.options.map(options => (
                       <div className="column">
@@ -127,47 +125,72 @@ const productPage = ({ data }) => {
                           key={options.id.toString()}
                           onChange={handleOptionChange}
                           options={options}
-                          disabled={isReverse}
+                          fullWidth={product.options.length > 1}
                         />
                       </div>
                     ))}
-                    {/* <div className="column is-3">
-                      <QuantityButton
-                        quantity={quantity}
-                        setQuantity={setQuantity}
-                        available={available}
-                      />
-                    </div> */}
                   </div>
-                  <br />
+                  {!isCustom && <br />}
 
                   {isCustom && (
-                    <div className="columns">
-                      {/* {product.options.map(options => ( */}
-                      <div className="column">
-                        <VariantSelectors
-                          key={patchOptions.id}
-                          onChange={handleOptionChange}
-                          options={patchOptions}
-                        />
+                    <>
+                      <div className="columns">
+                        <div className="column">
+                          <VariantSelectors
+                            key={patternOptions.id}
+                            onChange={handleOptionChange}
+                            options={patternOptions}
+                          />
+                        </div>
+                        <div className="column">
+                          <VariantSelectors
+                            key={patchPlacementOptions.id}
+                            onChange={handleOptionChange}
+                            options={patchPlacementOptions}
+                          />
+                        </div>
                       </div>
-                      <div className="column">
-                        <VariantSelectors
-                          key={patchOptions.id}
-                          onChange={handleOptionChange}
-                          options={patternOptions}
-                        />
+                      <div className="columns">
+                        <div className="column">
+                          <VariantSelectors
+                            key={color1Options.id}
+                            onChange={handleOptionChange}
+                            options={color1Options}
+                            disabled={isReverse}
+                            placeholder={'Choose Color 1'}
+                          />
+                        </div>
+                        <div className="column">
+                          <VariantSelectors
+                            key={color2Options.id}
+                            onChange={handleOptionChange}
+                            options={color2Options}
+                            disabled={isReverse}
+                            placeholder={'Choose Color 2'}
+                          />
+                        </div>
                       </div>
-                      {/* ))} */}
-                      {/* <div className="column is-3">
-                      <QuantityButton
-                        quantity={quantity}
-                        setQuantity={setQuantity}
-                        available={available}
-                      />
-                    </div> */}
-                    </div>
+                      <div className="columns">
+                        <div className="column">
+                          <VariantSelectors
+                            key={color3Options.id}
+                            onChange={handleOptionChange}
+                            options={color3Options}
+                            disabled={isReverse}
+                            placeholder={'Choose Color 3'}
+                          />
+                        </div>
+                        <div className="column">
+                          <QuantityButton
+                            quantity={quantity}
+                            setQuantity={setQuantity}
+                            available={available}
+                          />
+                        </div>
+                      </div>
+                    </>
                   )}
+
                   <br />
 
                   <Buttons

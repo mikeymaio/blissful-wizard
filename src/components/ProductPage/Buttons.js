@@ -8,7 +8,6 @@ const Buttons = ({
   customAttributes,
 }) => {
   const handleAddToCart = () => {
-    console.log('productVariant: ', productVariant)
     context.addVariantToCart(
       productVariant.shopifyId,
       quantity,
@@ -17,7 +16,11 @@ const Buttons = ({
   }
 
   const handleAddToCart_BuyNow = () => {
-    context.addVariantToCartAndBuyNow(productVariant.shopifyId, quantity)
+    context.addVariantToCartAndBuyNow(
+      productVariant.shopifyId,
+      quantity,
+      customAttributes
+    )
   }
 
   return (

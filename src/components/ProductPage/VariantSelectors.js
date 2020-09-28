@@ -1,11 +1,7 @@
 import React from 'react' /* eslint-disable */
 
-const VariantSelector = ({ key, onChange, options, disabled }) => {
+const VariantSelector = ({ key, onChange, options, disabled, placeholder }) => {
   if (options.name === 'Title') return null
-
-  // console.log('key: ', key)
-  // console.log('onChange: ', onChange)
-  // console.log('options: ', options)
 
   return (
     <div className="field ">
@@ -19,7 +15,12 @@ const VariantSelector = ({ key, onChange, options, disabled }) => {
             key={options.id}
             disabled={disabled}
           >
-            {options.values.map(value => (
+            {placeholder && (
+              <option value="" selected disabled hidden>
+                {placeholder}
+              </option>
+            )}
+            {options.values.map((value, index) => (
               <option
                 key={`${options.name}-${value}`}
                 value={value}

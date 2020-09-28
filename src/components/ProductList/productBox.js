@@ -27,8 +27,6 @@ const ProductBox = props => {
     })
   }, [product])
 
-  console.log('sizes: ', sizes)
-
   return (
     <div className="box productBox" key={product.node.title}>
       <a href={`/product/${product.node.handle}`}>
