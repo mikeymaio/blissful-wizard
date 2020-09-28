@@ -16,7 +16,10 @@ export default IndexPage
 
 export const query = graphql`
   query {
-    allShopifyProduct(sort: {fields: availableForSale, order: DESC}) {
+    allShopifyProduct(
+      sort: { fields: publishedAt, order: DESC }
+      filter: { availableForSale: { eq: true } }
+    ) {
       edges {
         node {
           availableForSale
