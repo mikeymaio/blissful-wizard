@@ -9,14 +9,15 @@ const ProductBox = props => {
   const [sizes, setSizes] = useState([])
 
   const getSizes = variant => {
-    const sizes = []
+    const variantSizes = []
+    console.log('variant.selectedOptions: ', variant.selectedOptions)
     if (variant.selectedOptions && variant.selectedOptions.length) {
       variant.selectedOptions.forEach(v => {
-        if (v.name === 'Size') {
+        if (v.name === 'Size' && sizes.indexOf(v.value) === -1) {
           sizes.push(v.value)
         }
       })
-      setSizes(sizes)
+      setSizes([...sizes, variantSizes])
     }
   }
 
@@ -41,7 +42,13 @@ const ProductBox = props => {
           {product.node.title}
         </p>
         {!!sizes.length ? (
-          <p className="has-text-black">Size: {sizes.toString()}</p>
+          <p className="has-text-black">
+            Size:{' '}
+            {sizes
+              .toString()
+              .split(',')
+              .join(' ')}
+          </p>
         ) : null}
         <p className="has-text-grey">${product.node.variants[0].price}</p>
       </a>
