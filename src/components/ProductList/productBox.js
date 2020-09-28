@@ -10,14 +10,13 @@ const ProductBox = props => {
 
   const getSizes = variant => {
     const variantSizes = []
-    console.log('variant.selectedOptions: ', variant.selectedOptions)
     if (variant.selectedOptions && variant.selectedOptions.length) {
       variant.selectedOptions.forEach(v => {
         if (v.name === 'Size' && sizes.indexOf(v.value) === -1) {
           sizes.push(v.value)
         }
       })
-      setSizes([...sizes, variantSizes])
+      setSizes([...sizes, ...variantSizes])
     }
   }
 
@@ -27,6 +26,8 @@ const ProductBox = props => {
       getSizes(variant)
     })
   }, [product])
+
+  console.log('sizes: ', sizes)
 
   return (
     <div className="box productBox" key={product.node.title}>
@@ -47,7 +48,7 @@ const ProductBox = props => {
             {sizes
               .toString()
               .split(',')
-              .join(' ')}
+              .join(', ')}
           </p>
         ) : null}
         <p className="has-text-grey">${product.node.variants[0].price}</p>

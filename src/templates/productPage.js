@@ -141,31 +141,33 @@ const productPage = ({ data }) => {
                   </div>
                   <br />
 
-                  <div className="columns">
-                    {/* {product.options.map(options => ( */}
-                    <div className="column">
-                      <VariantSelectors
-                        key={patchOptions.id}
-                        onChange={handleOptionChange}
-                        options={patchOptions}
-                      />
-                    </div>
-                    <div className="column">
-                      <VariantSelectors
-                        key={patchOptions.id}
-                        onChange={handleOptionChange}
-                        options={patternOptions}
-                      />
-                    </div>
-                    {/* ))} */}
-                    {/* <div className="column is-3">
+                  {isCustom && (
+                    <div className="columns">
+                      {/* {product.options.map(options => ( */}
+                      <div className="column">
+                        <VariantSelectors
+                          key={patchOptions.id}
+                          onChange={handleOptionChange}
+                          options={patchOptions}
+                        />
+                      </div>
+                      <div className="column">
+                        <VariantSelectors
+                          key={patchOptions.id}
+                          onChange={handleOptionChange}
+                          options={patternOptions}
+                        />
+                      </div>
+                      {/* ))} */}
+                      {/* <div className="column is-3">
                       <QuantityButton
                         quantity={quantity}
                         setQuantity={setQuantity}
                         available={available}
                       />
                     </div> */}
-                  </div>
+                    </div>
+                  )}
                   <br />
 
                   <Buttons
@@ -176,14 +178,16 @@ const productPage = ({ data }) => {
                     customAttributes={customAttributes}
                   />
                   <hr />
-                  <div
-                    key={`body`}
-                    id="content"
-                    className="content py-4 px-4"
-                    dangerouslySetInnerHTML={{
-                      __html: product.descriptionHtml,
-                    }}
-                  />
+                  {product.descriptionHtml && (
+                    <div
+                      key={`body`}
+                      id="content"
+                      className="content py-4 px-4"
+                      dangerouslySetInnerHTML={{
+                        __html: product.descriptionHtml,
+                      }}
+                    />
+                  )}
                 </div>
               </Box>
             </Flex>
