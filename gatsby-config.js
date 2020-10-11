@@ -8,11 +8,13 @@ module.exports = {
     description: `Buy handmade tie-dyes and more at The Blissful Wizard! Shop pre-made and customizable shirts, shorts, pants, and hoodies, all from your favorite wizard in the East Village, NYC!`,
     keywords: `tiedye,tie-dye,tie,dye,the blissful wizard,blissful wizard,t-shirt,hoodie,sweatsuits,pants,shorts,set,sets,clothing,apparel,grateful,dead,phish,hippie,hippy,psychedelic,trippy`,
     author: `@mikeymaio`,
+    siteUrl: `https://www.theblissfulwizard.com`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-layout`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-apollo-shopify`,
       options: {

@@ -28,6 +28,7 @@
     "gatsby-plugin-sass": "^2.1.28",
     "gatsby-plugin-sharp": "^2.4.5",
     "gatsby-plugin-shopify-buy": "0.0.2",
+    "gatsby-plugin-sitemap": "^2.4.15",
     "gatsby-query-params": "^1.2.0",
     "gatsby-remark-images-zoom": "^1.1.0",
     "gatsby-source-filesystem": "^2.1.48",
