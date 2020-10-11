@@ -67,6 +67,10 @@ function SEO({ description, lang, meta, title }) {
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          name: `keywords`,
+          content: `tiedye,tie-dye,tie,dye,the blissful wizard,blissful wizard,t-shirt,hoodie,sweatsuits,pants,shorts,set,sets,clothing,apparel,grateful,dead,phish,hippie,hippy,psychedelic,trippy`,
+        },
       ].concat(meta)}
     >
       <link

@@ -17,7 +17,7 @@ const SearchPage = ({ data }) => {
   const { edges: products } = data.allShopifyProduct
   return (
     <>
-      <SEO title="Home" />
+      <SEO title="Search" />
       <section className="hero">
         <div className="hero-body">
           <div className="container">

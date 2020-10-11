@@ -94,7 +94,10 @@ const productPage = ({ data }) => {
 
   return (
     <>
-      <SEO title={product.title} />
+      <SEO
+        title={product.title}
+        description={`${product.description} TAGS: [${product.tags}]`}
+      />
       <section className="hero is-fullheight-with-navbar">
         <div className="hero-body" style={{ display: 'block' }}>
           <div className="container">
@@ -238,6 +241,7 @@ export const query = graphql`
       handle
       tags
       productType
+      description
       descriptionHtml
       shopifyId
       options {
