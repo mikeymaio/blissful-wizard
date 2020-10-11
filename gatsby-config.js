@@ -6,7 +6,7 @@ module.exports = {
   siteMetadata: {
     title: `Blissful Wizard`,
     description: `Buy handmade tie-dyes and more at The Blissful Wizard! Shop pre-made and customizable shirts, shorts, pants, and hoodies, all from your favorite wizard in the East Village, NYC!`,
-    keywords: `tiedye,tie-dye,tie,dye,the blissful wizard,blissful wizard,t-shirt,hoodie,sweatsuit,pants,shorts,set,sets,clothing,apparel,grateful,dead,phish,hippie,hippy,psychedelic,trippy,east village,nyc,new york,mushroom,strain,weed,thc`,
+    keywords: `tiedye,tie-dye,tie,dye,the blissful wizard,blissful wizard,blissful,wizard,t-shirt,hoodie,sweatsuit,pants,shorts,set,sets,clothing,apparel,grateful,dead,phish,hippie,hippy,psychedelic,trippy,east village,nyc,new york,mushroom,strain,weed,thc`,
     author: `@mikeymaio`,
     siteUrl: `https://www.theblissfulwizard.com`,
   },
