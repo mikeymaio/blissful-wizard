@@ -13,7 +13,14 @@ const patchPlacementOptions = {
 const patternOptions = {
   id: 'Shopify__ProductOption__Pattern',
   name: 'Pattern',
-  values: ['Spiral', 'Bullseye', 'Tiger Stripes', 'Random', 'Reverse Tiedye'],
+  values: [
+    'Spiral',
+    'Bullseye',
+    'Tiger Stripes',
+    'Galaxy',
+    'Random',
+    'Reverse Tiedye',
+  ],
 }
 
 const color1Options = {
