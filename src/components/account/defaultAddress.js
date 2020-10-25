@@ -9,14 +9,14 @@ const DefaultAddress = ({ defaultAddress, addressesSize }) => {
       </h3>
       {defaultAddress != null && (
         <div className="has-text-left">
-          <p className="has-text-grey">
+          <p className="has-text-white">
             {defaultAddress.firstName} {defaultAddress.lastName}
           </p>
-          <p className="has-text-grey">{defaultAddress.address1}</p>
-          <p className="has-text-grey">
+          <p className="has-text-white">{defaultAddress.address1}</p>
+          <p className="has-text-white">
             {defaultAddress.zip}, {defaultAddress.city}
           </p>
-          <p className="has-text-grey">{defaultAddress.country}</p>
+          <p className="has-text-white">{defaultAddress.country}</p>
         </div>
       )}
       <br />

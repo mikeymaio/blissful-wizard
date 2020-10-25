@@ -12,7 +12,10 @@ const ProductBox = props => {
     const variantSizes = []
     if (variant.selectedOptions && variant.selectedOptions.length) {
       variant.selectedOptions.forEach(v => {
-        if (v.name === 'Size' && sizes.indexOf(v.value) === -1) {
+        if (
+          v.name?.toLowerCase().indexOf('size') !== -1 &&
+          sizes.indexOf(v.value) === -1
+        ) {
           sizes.push(v.value)
         }
       })
@@ -27,6 +30,8 @@ const ProductBox = props => {
     })
   }, [product])
 
+  const sizeLabel = sizes.length > 1 ? 'Sizes' : 'Size'
+
   return (
     <div className="box productBox" key={product.node.title}>
       <a href={`/product/${product.node.handle}`}>
@@ -37,19 +42,27 @@ const ProductBox = props => {
           loading="eager"
           alt={product.node.title}
         />
-        <p className="has-text-weight-semibold has-text-black">
+        <p
+          className="has-text-weight-semibold has-text-black"
+          style={{
+            marginTop: 10,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
           {product.node.title}
         </p>
         {!!sizes.length ? (
           <p className="has-text-black">
-            Size:{' '}
+            {`${sizeLabel}: `}
             {sizes
               .toString()
               .split(',')
               .join(', ')}
           </p>
         ) : null}
-        <p className="has-text-grey">${product.node.variants[0].price}</p>
+        <p className="has-text-white">${product.node.variants[0].price}</p>
       </a>
       {!available && <OutOfStockOverlay />}
     </div>

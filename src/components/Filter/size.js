@@ -1,5 +1,5 @@
 import React from 'react'
-import { find } from 'lodash/find';
+import { find } from 'lodash/find'
 
 const Size = ({ size, setSize, products }) => {
   const productSizes = []
@@ -26,7 +26,10 @@ const Size = ({ size, setSize, products }) => {
   productSizes.sort()
 
   return (
-    <label htmlFor="filter" className="has-text-weight-semibold is-uppercase">
+    <label
+      htmlFor="filter"
+      className="has-text-weight-semibold is-uppercase has-text-white"
+    >
       SIZE:
       <div className="field">
         <div className="control">

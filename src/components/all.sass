@@ -1130,3 +1130,23 @@ button.glow
   animation-timing-function: ease-in-out
   -webkit-animation-timing-function: ease-in-out
   box-shadow: 0 0 -10px rgba(138,43,226, 0)
+
+/// BACKGROUND IMAGE ///
+
+@keyframes psychedelic
+  0%
+    -webkit-filter: hue-rotate(0deg) saturate(2) invert(0) 
+  50% 
+    -webkit-filter: hue-rotate(360deg) saturate(8) invert(.25) 
+  100% 
+    -webkit-filter: hue-rotate(0deg) saturate(2) invert(0) 
+
+
+.psych
+	-webkit-animation: psychedelic linear 20s infinite 
+	-moz-animation: psychedelic linear 20s infinite 
+	-o-animation: psychedelic linear 20s infinite 
+	animation: psychedelic linear 20s infinite 
+
+button, input[type="submit"]
+  border-radius: 4px

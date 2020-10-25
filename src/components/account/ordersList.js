@@ -11,7 +11,7 @@ const OrdersList = ({ orders }) => {
           ORDER HISTORY
         </h3>
         {orders.edges.length === 0 ? (
-          <p className="has-text-grey">You haven't placed any orders yet.</p>
+          <p className="has-text-white">You haven't placed any orders yet.</p>
         ) : (
           <table className="table is-bordered" style={{ margin: 'auto' }}>
             <thead>

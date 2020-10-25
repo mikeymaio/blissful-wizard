@@ -43,7 +43,7 @@ const SearchPage = ({ data }) => {
         <div className="hero-body">
           <div className="hero-body">
             <div className="container">
-              <h1 className="is-size-5 has-text-medium">
+              <h1 className="is-size-5 has-text-medium has-text-white">
                 RESULTS FOR "{search.toUpperCase()}" :
               </h1>
             </div>

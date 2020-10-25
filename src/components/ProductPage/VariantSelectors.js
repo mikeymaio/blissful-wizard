@@ -5,7 +5,7 @@ const VariantSelector = ({ key, onChange, options, disabled, placeholder }) => {
 
   return (
     <div className="field ">
-      <label className="label">{options.name} </label>
+      <label className="label has-text-white">{options.name} </label>
 
       <div className="control">
         <div className="select is-fullwidth">

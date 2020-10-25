@@ -9,7 +9,7 @@ const QuantityButton = ({ quantity, setQuantity, available }) => {
   }
   return (
     <div className="field">
-      <label className="label">Quantity </label>
+      <label className="label has-text-white">Quantity </label>
       <div className="control">
         <div className="field has-addons">
           <div className="control">

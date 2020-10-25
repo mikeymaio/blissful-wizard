@@ -22,7 +22,10 @@ const Collection = ({ type, setType, products }) => {
   })
   productTypes.sort()
   return (
-    <label htmlFor="filter" className="has-text-weight-semibold is-uppercase">
+    <label
+      htmlFor="filter"
+      className="has-text-weight-semibold is-uppercase has-text-white"
+    >
       TYPE:
       <div className="field">
         <div className="control">

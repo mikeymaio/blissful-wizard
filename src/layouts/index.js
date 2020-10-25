@@ -5,9 +5,12 @@ import ContextProvider from '../provider/ContextProvider'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import IntroAnimation from '../components/intro_animation'
-import background from '../images/trippy-background4.jpg'
+// import background from '../images/trippy-background4.jpg'
 import { fairyDustCursor } from '../utils/fairy-dust.js'
 import '../components/all.sass'
+
+const background =
+  'https://i.pinimg.com/originals/a1/ac/df/a1acdfbd0e301a2b9b38ac0cdb53ccb5.jpg'
 
 const Layout = ({ children }) => {
   const initFairyDust = () => {
@@ -41,16 +44,18 @@ const Layout = ({ children }) => {
             <Header siteTitle={data.site.siteMetadata.title} />
             <div
               style={{
-                background: `linear-gradient( rgba(250, 250, 250, 0.97), rgba(250, 250, 250, 0.87) ), url('${background}')`,
+                background: `linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2) ), url('${background}')`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center center',
-                minHeight: 'calc(100vh - 52px)',
                 width: '100vw',
+                height: '100vh',
                 paddingTop: 52,
+                position: 'fixed',
+                zIndex: -1,
               }}
-            >
-              {children}
-            </div>
+              className="psych"
+            />
+            <div style={{ paddingTop: 52 }}>{children}</div>
             <div
               className="fairy-container"
               style={{

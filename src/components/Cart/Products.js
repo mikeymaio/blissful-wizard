@@ -4,7 +4,9 @@ import Product from './Product.js'
 const Products = ({ checkout }) => {
   return (
     <div>
-      <h1 className="title has-text-centered">Your shopping cart</h1>
+      <h1 className="title has-text-centered has-text-white">
+        Your shopping cart
+      </h1>
       <table className="table is-fullwidth is-hoverable">
         <thead className="is-hidden-touch">
           <tr align="center">
@@ -27,7 +29,7 @@ const Products = ({ checkout }) => {
         <p className="has-text-right has-text-weight-semibold is-size-5">
           $ {checkout.totalPrice}
         </p>
-        <p className="has-text-right is-size-5 has-text-grey">
+        <p className="has-text-right is-size-5 has-text-white">
           Shipping costs excluded (tax may apply)
         </p>
         <br />

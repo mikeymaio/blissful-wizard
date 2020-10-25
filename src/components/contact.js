@@ -18,7 +18,7 @@ const Contact = () => {
       <div className="py-4 px-4 left">
         <h2
           style={{ fontFamily: 'Lobster Two' }}
-          className="has-text-centered is-size-2 px-4"
+          className="has-text-centered has-text-white is-size-2 px-4"
         >
           Contact us for custom orders, questions, or just to say hi!
         </h2>

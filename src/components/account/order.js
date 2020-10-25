@@ -55,15 +55,15 @@ const Order = ({ order }) => {
         <div className="has-text-left">
           {order.shippingAddress && (
             <>
-              <p className="has-text-grey">
+              <p className="has-text-white">
                 {order.shippingAddress.firstName}{' '}
                 {order.shippingAddress.lastName}
               </p>
-              <p className="has-text-grey">{order.shippingAddress.address1}</p>
-              <p className="has-text-grey">
+              <p className="has-text-white">{order.shippingAddress.address1}</p>
+              <p className="has-text-white">
                 {order.shippingAddress.zip}, {order.shippingAddress.city}
               </p>
-              <p className="has-text-grey">{order.shippingAddress.country}</p>
+              <p className="has-text-white">{order.shippingAddress.country}</p>
             </>
           )}
         </div>

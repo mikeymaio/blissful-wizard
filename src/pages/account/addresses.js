@@ -71,14 +71,16 @@ const Addresses = () => {
                         {defaultAddress.id === address.node.id && (
                           <h1 className="subtitle">DEFAULT</h1>
                         )}
-                        <p className="has-text-grey">
+                        <p className="has-text-white">
                           {address.node.firstName} {address.node.lastName}
                         </p>
-                        <p className="has-text-grey">{address.node.address1}</p>
-                        <p className="has-text-grey">
+                        <p className="has-text-white">
+                          {address.node.address1}
+                        </p>
+                        <p className="has-text-white">
                           {address.node.zip}, {address.node.city}
                         </p>
-                        <p className="has-text-grey">{address.node.country}</p>
+                        <p className="has-text-white">{address.node.country}</p>
                         <EditAddressForm address={address.node} />
                         <DeleteAddress id={address.node.id} />
                       </div>

@@ -23,7 +23,10 @@ const Sort = ({ sort, setSort }) => {
     </>
   )
   return (
-    <label htmlFor="sortBy" className="has-text-weight-semibold is-uppercase">
+    <label
+      htmlFor="sortBy"
+      className="has-text-weight-semibold is-uppercase has-text-white"
+    >
       SORT BY :
       <div className="field">
         <div className="control">
