@@ -4,10 +4,16 @@ const patchOptions = {
   values: ['None', 'Bear', 'Butterfly', 'Strawberry'],
 }
 
-const patchPlacementOptions = {
-  id: 'Shopify__ProductOption__Patch_Placement',
+const patchPlacementOptionsTops = {
+  id: 'Shopify__ProductOption__Patch_Placement__Tops',
   name: 'Patch Placement',
   values: ['n/a', 'Chest Left', 'Chest Center', 'Arm', 'Pocket'],
+}
+
+const patchPlacementOptionsBottoms = {
+  id: 'Shopify__ProductOption__Patch_Placement__Bottoms',
+  name: 'Patch Placement',
+  values: ['n/a', 'Back Pocket', 'Front Bottom Left', 'Front Bottom Right'],
 }
 
 const patternOptions = {
@@ -43,7 +49,8 @@ const color3Options = {
 
 export const customTieDyeOptions = [
   patchOptions,
-  patchPlacementOptions,
+  patchPlacementOptionsTops,
+  patchPlacementOptionsBottoms,
   patternOptions,
   color1Options,
   color2Options,

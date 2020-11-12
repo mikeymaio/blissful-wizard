@@ -16,7 +16,8 @@ import { Flex, Box } from 'rebass'
 
 const [
   patchOptions,
-  patchPlacementOptions,
+  patchPlacementOptionsTops,
+  patchPlacementOptionsBottoms,
   patternOptions,
   color1Options,
   color2Options,
@@ -27,6 +28,7 @@ const productPage = ({ data }) => {
   const context = useContext(StoreContext)
   const product = data.shopifyProduct
   const isCustom = product.tags.indexOf('custom') > -1
+  const isBottoms = product.tags.indexOf('bottoms') > -1
 
   const [quantity, setQuantity] = useState(1)
   const [variant, setVariant] = useState(product.variants[0])
@@ -147,9 +149,17 @@ const productPage = ({ data }) => {
                         </div>
                         <div className="column">
                           <VariantSelectors
-                            key={patchPlacementOptions.id}
+                            key={
+                              isBottoms
+                                ? patchPlacementOptionsBottoms.id
+                                : patchPlacementOptionsTops.id
+                            }
                             onChange={handleOptionChange}
-                            options={patchPlacementOptions}
+                            options={
+                              isBottoms
+                                ? patchPlacementOptionsBottoms
+                                : patchPlacementOptionsTops
+                            }
                           />
                         </div>
                       </div>
