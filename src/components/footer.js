@@ -1,8 +1,6 @@
 import React from 'react'
 import logo from '../images/bw-logo.svg'
 import Contact from './contact'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInstagram } from '@fortawesome/free-solid-svg-icons'
 
 const Footer = () => {
   return (
@@ -12,22 +10,50 @@ const Footer = () => {
         {/* <Contact /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src={logo} alt="Blissful Wizard Logo" style={{ height: 80 }} />
-          <div>
-            <p style={{ marginBottom: 0 }}>
-              E:{' '}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              flex: 1,
+              justifyContent: 'space-between',
+            }}
+          >
+            <div className="contact-info">
+              <p style={{ marginBottom: 0 }}>
+                E:{' '}
+                <a
+                  href="mailto:info@theblissfulwizard.com"
+                  className="contact-link"
+                >
+                  info@theblissfulwizard.com
+                </a>
+              </p>
+              <p style={{ marginBottom: 0 }}>
+                T:{' '}
+                <a href="tel:610-456-7890" className="contact-link">
+                  610-456-7890
+                </a>
+              </p>
+            </div>
+
+            <div className="social">
               <a
-                href="mailto:info@theblissfulwizard.com"
-                className="contact-link"
+                className="facebook"
+                aria-label="facebook"
+                href="https://www.facebook.com/TheBlisssfulWizard/"
+                target="_blank"
               >
-                info@theblissfulwizard.com
+                <i class="fab fa-facebook"></i>
               </a>
-            </p>
-            {/* <p style={{ marginBottom: 0 }}>
-              T:{' '}
-              <a href="tel:610-456-7890" className="contact-link">
-                610-456-7890
+              <a
+                className="instagram"
+                aria-label="instagram"
+                href="https://www.instagram.com/blissful__wizard/"
+                target="_blank"
+              >
+                <i data-badge="0" className="fab fa-instagram"></i>
               </a>
-            </p> */}
+            </div>
           </div>
         </div>
         <div
@@ -37,7 +63,7 @@ const Footer = () => {
           <p className="has-text-left" style={{ marginBottom: 0 }}>
             <strong>Blissful Wizard, LLC &#169;2020</strong>
           </p>
-          <div className="button-container">
+          <div className="button-container legal-container">
             <a
               className="button is-dark"
               style={{ marginRight: '10px' }}
