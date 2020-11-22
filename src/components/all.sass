@@ -146,6 +146,14 @@ $tablet: 768px !default
     align-items: center
     justify-content: space-between
 
+  .company-info-container
+    display: flex
+    flex-direction: column
+    flex: 1
+    justify-content: space-between
+    // @media only screen and (min-width: $tablet)
+    //   flex-direction: row
+
   .button-container
     display: flex
     flex: 1
@@ -158,6 +166,7 @@ $tablet: 768px !default
   .social
     display: flex
     align-items: center
+    margin: 10px 0
 
   .facebook
     display: flex
@@ -166,7 +175,7 @@ $tablet: 768px !default
     text-align: center
     font-size: 48px
     height: 40px
-    margin: 0 10px
+    margin-right: 10px
     background: #fff
     color: #3173DC
     &:hover

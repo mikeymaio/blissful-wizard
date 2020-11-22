@@ -10,14 +10,7 @@ const Footer = () => {
         {/* <Contact /> */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <img src={logo} alt="Blissful Wizard Logo" style={{ height: 80 }} />
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              flex: 1,
-              justifyContent: 'space-between',
-            }}
-          >
+          <div className="company-info-container">
             <div className="contact-info">
               <p style={{ marginBottom: 0 }}>
                 E:{' '}
@@ -28,12 +21,12 @@ const Footer = () => {
                   info@theblissfulwizard.com
                 </a>
               </p>
-              <p style={{ marginBottom: 0 }}>
+              {/* <p style={{ marginBottom: 0 }}>
                 T:{' '}
                 <a href="tel:610-456-7890" className="contact-link">
                   610-456-7890
                 </a>
-              </p>
+              </p> */}
             </div>
 
             <div className="social">
