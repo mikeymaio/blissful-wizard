@@ -9,7 +9,7 @@ const Collection = ({ type, setType, products }) => {
     </option>
   )
   products.map((t, i) => {
-    let type = t.node.productType
+    let type = t.productType
     if (!productTypes.includes(type) && type.length > 0) {
       productTypes.push(type)
       types.push(

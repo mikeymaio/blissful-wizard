@@ -24,7 +24,7 @@ const ProductBox = props => {
   }
 
   useEffect(() => {
-    product.node.variants.forEach(variant => {
+    product.variants.forEach(variant => {
       setAvailable(variant.availableForSale)
       getSizes(variant)
     })
@@ -33,14 +33,14 @@ const ProductBox = props => {
   const sizeLabel = sizes.length > 1 ? 'Sizes' : 'Size'
 
   return (
-    <div className="box productBox" key={product.node.title}>
-      <a href={`/product/${product.node.handle}`}>
+    <div className="box productBox" key={product.title}>
+      <a href={`/product/${product.handle}`}>
         <Img
-          fluid={product.node.images[0].localFile.childImageSharp.fluid}
-          key={product.node.images[0].localFile.id}
+          fluid={product.images[0].localFile.childImageSharp.fluid}
+          key={product.images[0].localFile.id}
           fadeIn={false}
           loading="eager"
-          alt={product.node.title}
+          alt={product.title}
         />
         <p
           className="has-text-weight-semibold has-text-black"
@@ -51,7 +51,7 @@ const ProductBox = props => {
             textOverflow: 'ellipsis',
           }}
         >
-          {product.node.title}
+          {product.title}
         </p>
         {!!sizes.length ? (
           <p className="has-text-black">
@@ -62,7 +62,7 @@ const ProductBox = props => {
               .join(', ')}
           </p>
         ) : null}
-        <p className="has-text-white">${product.node.variants[0].price}</p>
+        <p className="has-text-white">${product.variants[0].price}</p>
       </a>
       {!available && <OutOfStockOverlay />}
     </div>

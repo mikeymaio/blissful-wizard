@@ -6,7 +6,7 @@ import Collection from './Filter/collection'
 import Size from './Filter/size'
 
 const ProductList = ({ data }) => {
-  const { edges: products } = data.allShopifyProduct
+  const { products } = data.shopifyCollection
   const context = useContext(StoreContext)
   const [type, setType] = useState(context.filteredType)
   const [sort, setSort] = useState(context.filteredSort)
@@ -46,21 +46,19 @@ const ProductList = ({ data }) => {
               .filter(p =>
                 context.filteredType === 'all'
                   ? p
-                  : p.node.productType.includes(context.filteredType)
+                  : p.productType.includes(context.filteredType)
               )
               .sort(
                 context.filteredSort === 'featured'
                   ? a => a
                   : context.filteredSort === 'low'
-                  ? (a, b) =>
-                      a.node.variants[0].price - b.node.variants[0].price
+                  ? (a, b) => a.variants[0].price - b.variants[0].price
                   : context.filteredSort === 'high'
-                  ? (a, b) =>
-                      b.node.variants[0].price - a.node.variants[0].price
+                  ? (a, b) => b.variants[0].price - a.variants[0].price
                   : context.filteredSort === 'Z-A'
-                  ? (a, b) => b.node.title.localeCompare(a.node.title)
+                  ? (a, b) => b.title.localeCompare(a.title)
                   : context.filteredSort === 'A-Z'
-                  ? (a, b) => a.node.title.localeCompare(b.node.title)
+                  ? (a, b) => a.title.localeCompare(b.title)
                   : null
               )
               .map((p, i) => {
@@ -69,7 +67,7 @@ const ProductList = ({ data }) => {
                   <div
                     className="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
                     style={{ marginBottom: '20px' }}
-                    key={i}
+                    key={product.id}
                   >
                     <ProductBox product={product} />
                   </div>

@@ -16,52 +16,48 @@ export default IndexPage
 
 export const query = graphql`
   query {
-    allShopifyProduct(
-      sort: { fields: publishedAt, order: DESC }
-      filter: { availableForSale: { eq: true } }
-    ) {
-      edges {
-        node {
-          availableForSale
+    shopifyCollection(title: { eq: "All Products" }) {
+      title
+      products {
+        availableForSale
+        images {
           id
-          title
-          handle
-          shopifyId
-          createdAt(fromNow: true)
-          publishedAt
-          productType
-          vendor
-          priceRange {
-            maxVariantPrice {
-              amount
-            }
-          }
-          images {
-            originalSrc
-            id
-            localFile {
-              childImageSharp {
-                fluid(maxWidth: 910) {
-                  ...GatsbyImageSharpFluid_withWebp_noBase64
-                }
+          originalSrc
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 910) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
               }
             }
           }
-          options {
-            id
-            name
-            values
+        }
+        id
+        title
+        tags
+        vendor
+        priceRange {
+          maxVariantPrice {
+            amount
           }
-          variants {
-            id
-            title
-            price
-            availableForSale
-            shopifyId
-            selectedOptions {
-              name
-              value
-            }
+        }
+        handle
+        createdAt(fromNow: true)
+        publishedAt
+        productType
+        options {
+          id
+          name
+          values
+        }
+        variants {
+          id
+          availableForSale
+          shopifyId
+          title
+          price
+          selectedOptions {
+            name
+            value
           }
         }
       }

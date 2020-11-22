@@ -11,7 +11,7 @@ const Size = ({ size, setSize, products }) => {
   )
 
   products.map((t, i) => {
-    let type = t.node.productType
+    let type = t.productType
     if (!productSizes.includes(type) && type.length > 0) {
       productSizes.push(type)
       sizes.push(
