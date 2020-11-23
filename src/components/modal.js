@@ -11,6 +11,9 @@ export default props => (
       className={`modal-background ${
         props.backgroundClass ? props.backgroundClass : ''
       }`}
+      onClick={() =>
+        props.hideOnClickAway ? props.onClose && props.onClose() : null
+      }
     >
       {props.renderBackgroundHtml ? props.renderBackgroundHtml() : null}
     </div>
@@ -21,7 +24,11 @@ export default props => (
       {props.children}
     </div>
     {!props.hideClose && (
-      <button className="modal-close is-large" aria-label="close"></button>
+      <button
+        className="modal-close is-large"
+        aria-label="close"
+        onClick={props.onClose}
+      ></button>
     )}
   </div>
 )

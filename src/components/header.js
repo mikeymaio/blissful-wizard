@@ -1,6 +1,7 @@
 import { Link } from 'gatsby' /* eslint-disable */
 import PropTypes from 'prop-types'
 import React, { useContext, useState, useEffect } from 'react'
+import Drawer from 'rc-drawer'
 import StoreContext from '../context/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -19,6 +20,7 @@ const countQuantity = lineItems => {
 }
 
 const Header = ({ siteTitle }) => {
+  const [isDrawerOpen, setDrawerOpen] = useState(false)
   const context = useContext(StoreContext)
   const { checkout } = context
   const [quantity, setQuantity] = useState(
@@ -38,6 +40,19 @@ const Header = ({ siteTitle }) => {
     setModal(false)
   }
 
+  const styles = {
+    navigationItemOrig: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      margin: '0.5em 1em',
+    },
+    navigationItem: {
+      display: 'flex',
+      alignItems: 'center',
+      margin: '0.5em 1em',
+    },
+  }
+
   return (
     <>
       <nav
@@ -53,6 +68,214 @@ const Header = ({ siteTitle }) => {
           boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
         }}
       >
+        {/* <button
+          style={{
+            outline: 'none',
+            border: 'none',
+            padding: 10,
+            marginLeft: 10,
+            backgroundColor: 'transparent',
+          }}
+          onClick={() => setDrawerOpen(true)}
+        >
+          <i style={{ fontSize: 24 }} className="fas fa-bars"></i>
+        </button> */}
+
+        <label
+          for="menu-opener"
+          tabindex="0"
+          aria-haspopup="true"
+          role="button"
+          aria-controls="menu"
+          className="OpenMenuButton"
+          id="openmenu"
+          style={{
+            outline: 'none',
+            border: 'none',
+            padding: 10,
+            marginLeft: 10,
+          }}
+        >
+          <i style={{ fontSize: 24 }} className="fas fa-bars"></i>
+        </label>
+
+        <input type="checkbox" data-menu id="menu-opener" hidden />
+        <aside
+          className="DrawerMenu"
+          role="menu"
+          id="menu"
+          aria-labelledby="openmenu"
+        >
+          <nav className="Menu">
+            <ul className={'mobileNavClassNames'}>
+              <li
+                style={{
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  marginBottom: 20,
+                }}
+              >
+                <label
+                  for="menu-opener"
+                  tabindex="0"
+                  aria-haspopup="true"
+                  role="button"
+                  aria-controls="menu"
+                  className="OpenMenuButton"
+                  id="openmenu"
+                  style={{
+                    outline: 'none',
+                    border: 'none',
+                    padding: 10,
+                    marginLeft: 10,
+                  }}
+                >
+                  <i style={{ fontSize: 24 }} className="fas fa-times"></i>
+                </label>
+              </li>
+              <li style={styles.navigationItem}>
+                <Link
+                  aria-label="home"
+                  className="has-text-white logo-nav"
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+              <li style={styles.navigationItem}>
+                <Link
+                  aria-label="products"
+                  className="has-text-white logo-nav"
+                  to="/products"
+                >
+                  Products
+                </Link>
+              </li>
+              <li style={styles.navigationItem}>
+                <Link
+                  aria-label="gallery"
+                  className="has-text-white logo-nav"
+                  to="/gallery"
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li
+                style={styles.navigationItem}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-around',
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: 20,
+                  backgroundColor: 'rgba(250,250,250,0.75)',
+                }}
+              >
+                <a
+                  className="facebook"
+                  aria-label="facebook"
+                  href="https://www.facebook.com/TheBlisssfulWizard/"
+                  target="_blank"
+                >
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a
+                  className="instagram"
+                  aria-label="instagram"
+                  href="https://www.instagram.com/blissful__wizard/"
+                  target="_blank"
+                >
+                  <i data-badge="0" className="fab fa-instagram"></i>
+                </a>
+              </li>
+              {/* <li style={styles.navigationItem} key="contactMobile">
+                <Link to="/#contact">Contact</Link>
+              </li> */}
+            </ul>
+          </nav>
+          <label for="menu-opener" className="MenuOverlay"></label>
+        </aside>
+
+        {/* <label
+          for="menu-opener"
+          tabindex="0"
+          aria-haspopup="true"
+          role="button"
+          aria-controls="menu"
+          className="OpenMenuButton"
+          id="openmenu"
+        >
+          <i style={{ fontSize: 24 }} className="fas fa-bars"></i>
+        </label>
+
+        <input type="checkbox" data-menu id="menu-opener" hidden />
+
+        <aside
+          className="DrawerMenu"
+          role="menu"
+          id="menu"
+          aria-labelledby="openmenu"
+        >
+          <nav className="Menu">
+            <button aria-label="close" onClick={() => setDrawerOpen(false)}>
+              <i style={{ fontSize: 24 }} className="fas fa-times"></i>
+            </button>
+            <ul className={'mobileNavClassNames'}>
+              <li style={styles.navigationItem} key="homeMobile">
+                <Link
+                  aria-label="home"
+                  className="has-text-black logo-nav"
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+              <li style={styles.navigationItem} key="aboutMobile">
+                <Link
+                  aria-label="products"
+                  className="has-text-black logo-nav"
+                  to="/products"
+                >
+                  Products
+                </Link>
+              </li>
+              <li style={styles.navigationItem} key="recentWorkMobile">
+                <Link
+                  aria-label="gallery"
+                  className="has-text-black logo-nav"
+                  to="/gallery"
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li style={styles.navigationItem} key="skillsMobile">
+                <a
+                  className="facebook"
+                  aria-label="facebook"
+                  href="https://www.facebook.com/TheBlisssfulWizard/"
+                  target="_blank"
+                >
+                  <i className="fab fa-facebook"></i>
+                </a>
+                <a
+                  className="instagram"
+                  aria-label="instagram"
+                  href="https://www.instagram.com/blissful__wizard/"
+                  target="_blank"
+                >
+                  <i data-badge="0" className="fab fa-instagram"></i>
+                </a>
+              </li>
+              <li style={styles.navigationItem} key="contactMobile">
+                <Link to="/#contact">Contact</Link>
+              </li>
+            </ul>
+          </nav>
+          <label for="menu-opener" className="MenuOverlay"></label>
+        </aside> */}
+
         <div
           className="navbar-start"
           style={{

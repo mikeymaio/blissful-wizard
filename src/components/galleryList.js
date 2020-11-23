@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
-// import Img from 'gatsby-image'
+import React, { useState } from 'react'
 import Img from 'gatsby-image/withIEPolyfill'
-// import StoreContext from '../context/store'
-// import ProductBox from './ProductList/productBox'
-// import Sort from './Filter/sort'
-// import Collection from './Filter/collection'
-// import Size from './Filter/size'
+import Modal from './modal'
+
+const prevNextStyles = {
+  outline: 'none',
+  border: 'none',
+  backgroundColor: 'transparent',
+}
 
 const GalleryList = ({ data }) => {
   console.log('data: ', data)
@@ -13,7 +14,16 @@ const GalleryList = ({ data }) => {
   console.log('products: ', products)
 
   const [isLightboxVisible, setLightBoxVisible] = useState(false)
-  const [selectedImage, setSelectedImage] = useState()
+  const [selectedImageIndex, setSelectedImageIndex] = useState()
+
+  const cycleLightBox = nextVal => {
+    if (nextVal < 0) {
+      return setSelectedImageIndex(products.length - 1)
+    } else if (nextVal > products.length - 1) {
+      return setSelectedImageIndex(0)
+    }
+    return setSelectedImageIndex(nextVal)
+  }
 
   return (
     <section className="hero">
@@ -47,6 +57,10 @@ const GalleryList = ({ data }) => {
                   className="column is-half-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen"
                   style={{ marginBottom: '20px' }}
                   key={product.id}
+                  onClick={() => {
+                    setSelectedImageIndex(i)
+                    setLightBoxVisible(true)
+                  }}
                 >
                   {/* <div className="box productBox" key={product.title}> */}
                   <Img
@@ -65,6 +79,67 @@ const GalleryList = ({ data }) => {
           </div>
         </div>
       </div>
+      {selectedImageIndex !== undefined && (
+        <Modal
+          visible={isLightboxVisible}
+          width="100vw"
+          height="100vh"
+          effect="fadeInUp"
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onClose={() => setLightBoxVisible(false)}
+          hideOverflow
+          hideOnClickAway
+        >
+          <div
+            style={{
+              backgroundColor: 'transparent',
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+            }}
+          >
+            <button
+              style={prevNextStyles}
+              onClick={() => cycleLightBox(selectedImageIndex - 1)}
+              aria-label="view previous photo"
+            >
+              <i
+                style={{ fontSize: 32, color: '#fff' }}
+                className="fas fa-chevron-left"
+              ></i>
+            </button>
+
+            <Img
+              fixed={
+                products[selectedImageIndex]?.images[0]?.localFile
+                  ?.childImageSharp?.fixed
+              }
+              key={products[selectedImageIndex]?.images[0]?.localFile?.id}
+              fadeIn={true}
+              loading="eager"
+              alt={products[selectedImageIndex]?.title}
+              objectFit="contain"
+              objectPosition="50% 50%"
+            />
+
+            <button
+              style={prevNextStyles}
+              onClick={() => cycleLightBox(selectedImageIndex + 1)}
+              aria-label="view previous photo"
+            >
+              <i
+                style={{ fontSize: 32, color: '#fff' }}
+                className="fas fa-chevron-right"
+              ></i>
+            </button>
+          </div>
+        </Modal>
+      )}
     </section>
   )
 }
