@@ -36,8 +36,8 @@ const ProductBox = props => {
     <div className="box productBox" key={product.title}>
       <a href={`/product/${product.handle}`}>
         <Img
-          fluid={product.images[0].localFile.childImageSharp.fluid}
-          key={product.images[0].localFile.id}
+          fluid={product?.images[0]?.localFile?.childImageSharp?.fluid}
+          key={product?.images[0]?.localFile?.id}
           fadeIn={false}
           loading="eager"
           alt={product.title}
@@ -62,7 +62,7 @@ const ProductBox = props => {
               .join(', ')}
           </p>
         ) : null}
-        <p className="has-text-white">${product.variants[0].price}</p>
+        <p className="has-text-white">${product?.variants[0]?.price}</p>
       </a>
       {!available && <OutOfStockOverlay />}
     </div>

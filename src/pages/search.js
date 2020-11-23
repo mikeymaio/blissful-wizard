@@ -14,7 +14,7 @@ const SearchPage = ({ data }) => {
     )
   }, [])
 
-  const { edges: products } = data.allShopifyProduct
+  const { products } = data.shopifyCollection
   return (
     <>
       <SEO title="Search" />
@@ -53,14 +53,12 @@ const SearchPage = ({ data }) => {
               {products
                 .filter(
                   p =>
-                    p.node.title.toUpperCase().includes(search.toUpperCase()) ||
-                    p.node.productType
+                    p.title.toUpperCase().includes(search.toUpperCase()) ||
+                    p.productType
                       .toUpperCase()
                       .includes(search.toUpperCase()) ||
-                    (p.node.title
-                      .toUpperCase()
-                      .includes(search.toUpperCase()) &&
-                      p.node.productType
+                    (p.title.toUpperCase().includes(search.toUpperCase()) &&
+                      p.productType
                         .toUpperCase()
                         .includes(search.toUpperCase()))
                 )
@@ -89,42 +87,48 @@ export default SearchPage
 
 export const query = graphql`
   query {
-    allShopifyProduct(sort: { fields: availableForSale, order: DESC }) {
-      edges {
-        node {
-          availableForSale
+    shopifyCollection(title: { eq: "All Products" }) {
+      title
+      products {
+        availableForSale
+        images {
           id
-          title
-          handle
-          createdAt(fromNow: true)
-          publishedAt
-          productType
-          vendor
-          priceRange {
-            maxVariantPrice {
-              amount
-            }
-          }
-          images {
-            originalSrc
-            id
-            localFile {
-              childImageSharp {
-                fluid(maxWidth: 910) {
-                  ...GatsbyImageSharpFluid_withWebp_noBase64
-                }
+          originalSrc
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 910) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
               }
             }
           }
-          variants {
-            id
-            title
-            price
-            availableForSale
-            selectedOptions {
-              name
-              value
-            }
+        }
+        id
+        title
+        tags
+        vendor
+        priceRange {
+          maxVariantPrice {
+            amount
+          }
+        }
+        handle
+        createdAt(fromNow: true)
+        publishedAt
+        productType
+        options {
+          id
+          name
+          values
+        }
+        variants {
+          id
+          availableForSale
+          shopifyId
+          title
+          price
+          selectedOptions {
+            name
+            value
           }
         }
       }
