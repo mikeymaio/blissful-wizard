@@ -9,9 +9,7 @@ const prevNextStyles = {
 }
 
 const GalleryList = ({ data }) => {
-  console.log('data: ', data)
   const { products } = data.shopifyCollection
-  console.log('products: ', products)
 
   const [isLightboxVisible, setLightBoxVisible] = useState(false)
   const [selectedImageIndex, setSelectedImageIndex] = useState()

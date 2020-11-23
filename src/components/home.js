@@ -6,25 +6,53 @@ import React, { useContext, useState, useEffect } from 'react'
 // import Size from './Filter/size'
 
 import Img from 'gatsby-image/withIEPolyfill'
+import Carousel from './carousel'
 
 const Landing = ({ data }) => {
-  console.log('data: ', data)
   const collections = data?.allShopifyCollection?.edges
-
-  // console.log('collections: ', collections)
 
   const images = collections.map(c => ({
     ...c.node.image,
     title: c.node.title,
+    description: c.node.description,
+    descriptionHtml: c.node.descriptionHtml,
   }))
-
-  console.log('images: ', images)
 
   return (
     <section className="hero">
+      {/* <div style={{ width: '100vw' }}> */}
+      <Carousel style={{ height: '95vh' }}>
+        {images?.map(image => (
+          <div
+            data-src={image.src}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {/* <div
+              className="has-text-black has-text-centered is-size-4"
+              style={{
+                position: 'relative',
+                backgroundColor: 'rgba(250,250,250,0.7)',
+              }}
+            >
+              {image.descriptionHtml}
+            </div>
+            <p
+              className="has-text-black has-text-centered is-size-4"
+              style={{ position: 'relative' }}
+            >
+              {image.description}
+            </p> */}
+          </div>
+        ))}
+      </Carousel>
+      {/* </div> */}
       <div className="hero-body">
         <div className="container">
-          {images?.map(image => (
+          {/* {images?.map(image => (
             <div className="box">
               <Img
                 fluid={image.localFile.childImageSharp.fluid}
@@ -36,7 +64,7 @@ const Landing = ({ data }) => {
                 objectPosition="50% 50%"
               />
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
     </section>

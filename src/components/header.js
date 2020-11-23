@@ -1,6 +1,6 @@
 import { Link } from 'gatsby' /* eslint-disable */
 import PropTypes from 'prop-types'
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import Drawer from 'rc-drawer'
 import StoreContext from '../context/store'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -53,6 +53,9 @@ const Header = ({ siteTitle }) => {
     },
   }
 
+  const [isChecked, setChecked] = useState(false)
+  const menuOpener = useRef()
+
   return (
     <>
       <nav
@@ -81,25 +84,27 @@ const Header = ({ siteTitle }) => {
           <i style={{ fontSize: 24 }} className="fas fa-bars"></i>
         </button> */}
 
-        <label
-          for="menu-opener"
-          tabindex="0"
-          aria-haspopup="true"
-          role="button"
-          aria-controls="menu"
-          className="OpenMenuButton"
-          id="openmenu"
+        <button
           style={{
             outline: 'none',
             border: 'none',
             padding: 10,
             marginLeft: 10,
+            backgroundColor: 'transparent',
           }}
+          onClick={() => setChecked(true)}
         >
           <i style={{ fontSize: 24 }} className="fas fa-bars"></i>
-        </label>
+        </button>
 
-        <input type="checkbox" data-menu id="menu-opener" hidden />
+        <input
+          ref={menuOpener}
+          type="checkbox"
+          data-menu
+          id="menu-opener"
+          checked={isChecked}
+          hidden
+        />
         <aside
           className="DrawerMenu"
           role="menu"
@@ -115,29 +120,29 @@ const Header = ({ siteTitle }) => {
                   marginBottom: 20,
                 }}
               >
-                <label
-                  for="menu-opener"
-                  tabindex="0"
-                  aria-haspopup="true"
-                  role="button"
-                  aria-controls="menu"
-                  className="OpenMenuButton"
-                  id="openmenu"
+                <button
                   style={{
                     outline: 'none',
                     border: 'none',
                     padding: 10,
                     marginLeft: 10,
+                    backgroundColor: 'transparent',
                   }}
+                  onClick={() => setChecked(false)}
                 >
-                  <i style={{ fontSize: 24 }} className="fas fa-times"></i>
-                </label>
+                  <i
+                    style={{ fontSize: 24, color: '#000' }}
+                    className="fas fa-times"
+                  ></i>
+                </button>
               </li>
               <li style={styles.navigationItem}>
                 <Link
                   aria-label="home"
-                  className="has-text-white logo-nav"
+                  className="has-text-black logo-nav"
                   to="/"
+                  style={{ fontSize: 32 }}
+                  onClick={() => setChecked(false)}
                 >
                   Home
                 </Link>
@@ -145,8 +150,10 @@ const Header = ({ siteTitle }) => {
               <li style={styles.navigationItem}>
                 <Link
                   aria-label="products"
-                  className="has-text-white logo-nav"
+                  className="has-text-black logo-nav"
                   to="/products"
+                  style={{ fontSize: 32 }}
+                  onClick={() => setChecked(false)}
                 >
                   Products
                 </Link>
@@ -154,8 +161,10 @@ const Header = ({ siteTitle }) => {
               <li style={styles.navigationItem}>
                 <Link
                   aria-label="gallery"
-                  className="has-text-white logo-nav"
+                  className="has-text-black logo-nav"
                   to="/gallery"
+                  style={{ fontSize: 32 }}
+                  onClick={() => setChecked(false)}
                 >
                   Gallery
                 </Link>
@@ -190,17 +199,17 @@ const Header = ({ siteTitle }) => {
                   <i data-badge="0" className="fab fa-instagram"></i>
                 </a>
               </li>
-              {/* <li style={styles.navigationItem} key="contactMobile">
+              {/* <li style={styles.navigationItem}>
                 <Link to="/#contact">Contact</Link>
               </li> */}
             </ul>
           </nav>
-          <label for="menu-opener" className="MenuOverlay"></label>
+          <label htmlFor="menu-opener" className="MenuOverlay"></label>
         </aside>
 
         {/* <label
-          for="menu-opener"
-          tabindex="0"
+          htmlFor="menu-opener"
+          tabIndex="0"
           aria-haspopup="true"
           role="button"
           aria-controls="menu"
@@ -273,7 +282,7 @@ const Header = ({ siteTitle }) => {
               </li>
             </ul>
           </nav>
-          <label for="menu-opener" className="MenuOverlay"></label>
+          <label htmlFor="menu-opener" className="MenuOverlay"></label>
         </aside> */}
 
         <div
